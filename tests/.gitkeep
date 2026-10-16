@@ -1,0 +1,23 @@
+// tests/README.md — Estructura de Tests del Proyecto
+
+/**
+ * Convención de nombres:
+ *   tests/<nombre-del-módulo>.test.js
+ *
+ * Ejecutar todos los tests:
+ *   node --test tests/**\/*.test.js
+ *   npm test
+ *
+ * Los tests usan el runner nativo de Node.js (node:test).
+ * No se requieren dependencias externas.
+ *
+ * Ejemplo de test:
+ *
+ *   const { test } = require('node:test');
+ *   const assert = require('node:assert');
+ *   const { miFuncion } = require('../src/logic/miModulo');
+ *
+ *   test('RF-01: descripción del requisito', () => {
+ *     assert.strictEqual(miFuncion(input), expected);
+ *   });
+ */
