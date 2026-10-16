@@ -224,4 +224,7 @@ function applySettlement(purchaseId, split, balances) {
   };
 }
 
-module.exports = { calculateSplit, roundHalfUp2, validateListingParams, validatePurchaseParams, applySettlement };
+// T4 (Spec 005): se exportan también assertQuantityForAsset y countDecimals para
+// que purchaseRules.js reutilice las reglas de cantidad de 003 sin duplicarlas.
+// No se cambia ninguna regla ni semántica existente.
+module.exports = { calculateSplit, roundHalfUp2, validateListingParams, validatePurchaseParams, applySettlement, assertQuantityForAsset, countDecimals };

@@ -5,9 +5,9 @@
 ---
 
 ## Estado Actual del Proyecto
-- **Fase:** Backend 001-004 COMPLETAS y APROBADAS. 317 tests verdes. DB física Supabase creada y verificada.
-- **Último hito:** DB física Supabase aplicada (migración `supabase/migrations/20261016061300_muurketplace_mirror.sql`) y sonda conforme: 5 tablas, RLS (`anon` SELECT OK / escritura 42501), PKs idempotentes, FKs enforced.
-- **Spec activa:** Ninguna (004 cerrada). Pendiente: correr E2E real 002/003/004 en Testnet.
+- **Fase:** Backend 001-004 COMPLETAS y APROBADAS (317 tests verdes). **Spec 005**: `spec.md` (17 RF) validado por `/sdd-clarify` (LISTA PARA PLANIFICAR) y `plan.md` APROBADO por el usuario; pendiente `/sdd-tasks` e implementación.
+- **Último hito:** Spec 005 (`specs/005-flujo-tokenizacion-venta/`): spec + plan aprobados. Flujo end-to-end cabaña tokeniza su animal (par `PAJ-BRAF`+`BULL` por animal/lote) → cliente compra con transferencia HTS real → compra **atómica HTS↔HBAR** vía `MuurketplaceAtomic.sol` (reemplaza a `Muurketplace.sol`) → registro de compra en el **topic HCS de 002** → wallets de ambas partes verificables en HashScan.
+- **Spec activa:** `specs/005-flujo-tokenizacion-venta` (plan aprobado; siguiente fase `/sdd-tasks`). Pendiente previo: correr E2E real 002/003/004 en Testnet.
 
 ## Decisiones Tomadas (y Por Qué)
 | Decisión | Razón |
@@ -19,6 +19,9 @@
 | Notación EARS para requisitos | Evita ambigüedades; directamente verificables en tests |
 | Supabase como espejo off-chain (004) | Chain = verdad, Supabase solo recuerda; idempotencia por valuationKey/purchaseId |
 | Aprobar `@supabase/supabase-js` al implementar 004 | Decisión usuario 2026-10-16; usada solo en `src/db/supabaseClient.js` server-side (T9 004 verificada en `tests/purity.test.js`) |
+| Spec 005: `MuurketplaceAtomic.sol` reemplaza a `Muurketplace.sol` con atomicidad HTS↔HBAR | Decisión usuario (D-03/D-06): reabre/ajusta 003; conserva listado/cancelación/consultas, elimina retiro diferido (split inmediato) |
+| Spec 005: allowance HIP-336 amplia y revocable por lote (D-08) | Una firma de la cabaña por lote (no por compra); mínimo privilegio; resolvió el bloqueante B1 de factibilidad |
+| Spec 005: reutilizar el topic HCS de 002 para compras (D-01) | Evita topic extra; discriminador `kind`/`specVersion`; verificador de compras propio (`purchaseVerifier.js`), deja intacto `oracleVerifier.js` |
 
 ## Aprendizajes y Errores a Evitar
 - ⚠️ `PrivateKey.fromStringECDSA()` requiere la clave sin el prefijo `0x`.
@@ -39,3 +42,4 @@
 8. [ ] E2E real 002 (HCS) y 003 (HSCS) + despliegue del contrato `Muurketplace.sol`.
 9. [ ] (Descartado por decisión) Rotar clave Hedera Testnet — riesgo aceptado, cuenta integrada.
 10. [ ] `git push` del commit `6bb75b5` (opcional; deja de trackear `.env` hacia adelante).
+11. [ ] Spec 005: `/sdd-tasks` (desglose TDD) → `/sdd-implement` (1 tarea a la vez) → `/sdd-validate`. Requiere desplegar `MuurketplaceAtomic.sol` en Testnet para la E2E gateada (`RUN_TOKENIZATION_INTEGRATION=1`).

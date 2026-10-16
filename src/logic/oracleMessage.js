@@ -147,4 +147,6 @@ function diffDeep(actual, expected, path) {
   return [path === "" ? "(root)" : path];
 }
 
-module.exports = { buildOracleMessage, toCanonicalJson, verifyMessageContent };
+// sha256Hex se exporta además para que la Spec 005 (purchaseMessage.js) reutilice
+// el mismo hashing canónico sin reimplementarlo. No cambia semántica existente.
+module.exports = { buildOracleMessage, toCanonicalJson, verifyMessageContent, sha256Hex };
