@@ -18,20 +18,39 @@ export default function BullDetailModal({
   userRole = 'buyer',
   setActiveView
 }) {
+  const [assetType, setAssetType] = useState('pajuela'); // 'pajuela' (PAJ-BRAF) | 'bull_equity' (BULL)
   const [tokenAmount, setTokenAmount] = useState(10);
+  const [equityAmount, setEquityAmount] = useState(1); // 1 cuota parte = 10% del reproductor vivo
   const [activeTab, setActiveTab] = useState('biometrics');
   const [isInvesting, setIsInvesting] = useState(false);
   const [investSuccess, setInvestSuccess] = useState(null);
 
   if (!bull) return null;
 
-  const totalCostUSDC = Number((tokenAmount * bull.pricePerTokenUSDC).toFixed(2));
-  const estimatedAnnualYieldUSDC = Number(((totalCostUSDC * bull.estimatedAPY) / 100).toFixed(2));
-  const shareOfBullPct = ((tokenAmount / bull.totalTokens) * 100).toFixed(2);
+  // Cálculos para Pajuela (PAJ-BRAF)
   const remainingTokens = bull.totalTokens - bull.tokensSold;
+  const pajuelaCostUSDC = Number((tokenAmount * bull.pricePerTokenUSDC).toFixed(2));
+  const pajuelaAnnualYieldUSDC = Number(((pajuelaCostUSDC * bull.estimatedAPY) / 100).toFixed(2));
+  const shareOfBullPct = ((tokenAmount / bull.totalTokens) * 100).toFixed(2);
+
+  // Cálculos para Copropiedad del Animal Vivo (BULL)
+  // Cada toro se divide en 10 cuotas partes patrimoniales (1 cuota = 10% del valor total)
+  const pricePerEquityShareUSDC = Number((bull.valuationUSD * 0.1).toFixed(2));
+  const equityCostUSDC = Number((equityAmount * pricePerEquityShareUSDC).toFixed(2));
+  const equityPercentOwned = Number((equityAmount * 10).toFixed(2));
+  const equityAnnualYieldUSDC = Number(((equityCostUSDC * (bull.estimatedAPY + 3.5)) / 100).toFixed(2));
+
+  // Totales según tipo de activo seleccionado
+  const isPajuela = assetType === 'pajuela';
+  const totalCostUSDC = isPajuela ? pajuelaCostUSDC : equityCostUSDC;
+  const estimatedAnnualYieldUSDC = isPajuela ? pajuelaAnnualYieldUSDC : equityAnnualYieldUSDC;
 
   const handleQuickAdd = (amount) => {
     setTokenAmount(prev => Math.min(remainingTokens, Math.max(1, prev + amount)));
+  };
+
+  const handleQuickAddEquity = (amount) => {
+    setEquityAmount(prev => Number(Math.min(4, Math.max(0.1, Number((prev + amount).toFixed(1))))));
   };
 
   const handleInvest = () => {
@@ -40,14 +59,23 @@ export default function BullDetailModal({
     setTimeout(() => {
       const txHash = `0.0.651928@${Math.floor(Date.now() / 1000)}.000000001`;
       setIsInvesting(false);
+      const activeTokenId = isPajuela ? bull.htsTokenId : '0.0.11043217';
+      const activeSymbol = isPajuela ? (bull.symbol || 'PAJ-BRAF') : 'BULL-EQ';
+      const assetLabel = isPajuela 
+        ? `${tokenAmount} Pajuelas Seminales (${activeSymbol})`
+        : `${equityAmount} Cuota Parte (${equityPercentOwned}% Copropiedad del Toro en Pie)`;
+
       setInvestSuccess({
         bullName: bull.name,
-        tokensPurchased: tokenAmount,
+        tokensPurchased: isPajuela ? tokenAmount : equityAmount,
+        assetLabel,
+        isPajuela,
         totalCost: totalCostUSDC,
         txHash,
-        tokenUrl: `https://hashscan.io/testnet/token/${bull.htsTokenId}`,
+        tokenUrl: `https://hashscan.io/testnet/token/${activeTokenId}`,
         txUrl: `https://hashscan.io/testnet/transaction/${txHash}`,
-        tokenId: bull.htsTokenId
+        tokenId: activeTokenId,
+        symbol: activeSymbol
       });
 
       confetti({
@@ -60,7 +88,8 @@ export default function BullDetailModal({
         onInvestSuccess({
           bullId: bull.id,
           bullName: bull.name,
-          tokens: tokenAmount,
+          assetType,
+          tokens: isPajuela ? tokenAmount : equityAmount,
           costUSDC: totalCostUSDC,
           bull
         });
@@ -464,88 +493,178 @@ export default function BullDetailModal({
               </div>
             ) : (
               /* INVESTOR / CLIENT VIEW: Token Purchase & Investment */
-              <div className="bg-white rounded-xl border border-crema-border p-6 shadow-sm">
+              <div className="bg-white rounded-xl border border-crema-border p-5 shadow-sm space-y-3.5">
                 
-                <div className="flex items-center justify-between pb-3 border-b border-crema-border">
+                <div className="flex items-center justify-between pb-2.5 border-b border-crema-border">
                   <div>
-                    <h3 className="text-sm font-heading font-bold text-tinta">Panel de Compra de Tokens</h3>
-                    <p className="text-[10px] text-tinta-muted">Inversión Directa en Fracciones HTS</p>
+                    <h3 className="text-sm font-heading font-bold text-tinta">Panel de Inversión RWA</h3>
+                    <p className="text-[10px] text-tinta-muted">Selecciona la modalidad de activo ganadero</p>
                   </div>
-                  <div className="px-2.5 py-0.5 rounded-md bg-salvia-light text-salvia font-mono text-xs font-bold border border-salvia-border">
-                    ~{bull.estimatedAPY}% APY Est.
+                  <div className="px-2 py-0.5 rounded-md bg-salvia-light text-salvia font-mono text-[11px] font-bold border border-salvia-border">
+                    ~{isPajuela ? bull.estimatedAPY : (bull.estimatedAPY + 3.5).toFixed(1)}% APY Est.
                   </div>
                 </div>
 
+                {/* DUAL ASSET SELECTOR: Pajuela vs Propio Animal */}
+                <div className="grid grid-cols-2 p-1 bg-crema-surface rounded-lg border border-crema-border">
+                  <button
+                    type="button"
+                    onClick={() => setAssetType('pajuela')}
+                    className={`py-2 px-2.5 rounded-md text-xs font-heading font-bold transition-all flex items-center justify-center gap-1.5 ${
+                      isPajuela
+                        ? 'bg-monte text-white shadow-sm'
+                        : 'text-tinta-muted hover:text-tinta'
+                    }`}
+                  >
+                    <span>🧪 Pajuela Seminal</span>
+                    <span className="text-[9px] font-mono px-1 py-0.2 bg-white/20 rounded">PAJ</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAssetType('bull_equity')}
+                    className={`py-2 px-2.5 rounded-md text-xs font-heading font-bold transition-all flex items-center justify-center gap-1.5 ${
+                      !isPajuela
+                        ? 'bg-cuero text-white shadow-sm'
+                        : 'text-tinta-muted hover:text-tinta'
+                    }`}
+                  >
+                    <span>🐂 Propio Animal</span>
+                    <span className="text-[9px] font-mono px-1 py-0.2 bg-white/20 rounded">BULL</span>
+                  </button>
+                </div>
+
+                {/* Asset Description Badge */}
+                <div className={`p-2.5 rounded-lg border text-[11px] flex items-start gap-2 ${
+                  isPajuela 
+                    ? 'bg-salvia-light/60 border-salvia-border text-salvia-dark'
+                    : 'bg-arena-light border-arena-border text-tinta-light'
+                }`}>
+                  <Info className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-cuero" />
+                  <p className="leading-snug">
+                    {isPajuela ? (
+                      <>
+                        <strong>Activo de Producción Seminal (PAJ-BRAF):</strong> 1 token = 1 pajuela física (0.5 ml) criopreservada en criocentro SENASA. Otorga derecho a retiro físico para inseminar o cobro de dividendos comerciales.
+                      </>
+                    ) : (
+                      <>
+                        <strong>Activo sobre el Animal Vivo (BULL):</strong> Copropiedad patrimonial sobre el reproductor en pie. Otorga derecho a plusvalía de mercado, premios en Palermo y regalías vitalicias de semen.
+                      </>
+                    )}
+                  </p>
+                </div>
+
                 {/* Price Details */}
-                <div className="my-4 p-3.5 rounded-lg bg-crema-surface border border-crema-border flex items-center justify-between">
+                <div className="p-3 rounded-lg bg-crema-surface border border-crema-border flex items-center justify-between">
                   <div>
                     <span className="text-[10px] font-mono uppercase text-tinta-muted font-medium block">
-                      Precio por Fracción
+                      {isPajuela ? 'Precio por Pajuela' : 'Precio Cuota 10% del Toro'}
                     </span>
                     <span className="text-xl font-heading font-extrabold text-tinta font-mono">
-                      ${bull.pricePerTokenUSDC.toFixed(2)} <span className="text-xs text-tinta-muted font-sans font-normal">USDC</span>
+                      ${isPajuela ? bull.pricePerTokenUSDC.toFixed(2) : pricePerEquityShareUSDC.toLocaleString()} <span className="text-xs text-tinta-muted font-sans font-normal">USDC</span>
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className="text-[10px] text-tinta-muted font-medium block">Disponibles</span>
+                    <span className="text-[10px] text-tinta-muted font-medium block">Disponibilidad</span>
                     <span className="font-mono text-tinta text-xs font-bold">
-                      {remainingTokens} / {bull.totalTokens}
+                      {isPajuela ? `${remainingTokens} / ${bull.totalTokens} dosis` : '4 de 10 cuotas partes'}
                     </span>
                   </div>
                 </div>
 
                 {/* Quantity Controls */}
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   <div className="flex justify-between items-center text-xs">
                     <label className="text-tinta font-semibold">
-                      Cantidad a Comprar
+                      {isPajuela ? 'Cantidad de Pajuelas' : 'Cuotas Partes de Copropiedad'}
                     </label>
                     <span className="font-mono font-bold text-monte">
-                      {tokenAmount} Fracciones ({shareOfBullPct}% del Toro)
+                      {isPajuela 
+                        ? `${tokenAmount} Dosis (${shareOfBullPct}% ronda)` 
+                        : `${equityAmount} Cuota (${equityPercentOwned}% del Animal)`}
                     </span>
                   </div>
 
                   {/* Preset Chips */}
-                  <div className="grid grid-cols-5 gap-1.5">
-                    {[1, 5, 10, 50, 100].map((num) => (
-                      <button
-                        key={num}
-                        onClick={() => handleQuickAdd(num)}
-                        className="py-1 rounded-md bg-crema-surface hover:bg-salvia-light text-xs font-mono font-bold text-tinta border border-crema-border transition-colors"
-                      >
-                        +{num}
-                      </button>
-                    ))}
-                  </div>
+                  {isPajuela ? (
+                    <div className="grid grid-cols-5 gap-1.5">
+                      {[1, 5, 10, 50, 100].map((num) => (
+                        <button
+                          key={num}
+                          type="button"
+                          onClick={() => handleQuickAdd(num)}
+                          className="py-1 rounded-md bg-crema-surface hover:bg-salvia-light text-xs font-mono font-bold text-tinta border border-crema-border transition-colors"
+                        >
+                          +{num}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-4 gap-1.5">
+                      {[0.1, 0.5, 1, 2].map((num) => (
+                        <button
+                          key={num}
+                          type="button"
+                          onClick={() => setEquityAmount(num)}
+                          className={`py-1 rounded-md text-xs font-mono font-bold border transition-colors ${
+                            equityAmount === num 
+                              ? 'bg-cuero text-white border-cuero' 
+                              : 'bg-crema-surface text-tinta hover:bg-arena-light border-crema-border'
+                          }`}
+                        >
+                          {num} cuota ({num * 10}%)
+                        </button>
+                      ))}
+                    </div>
+                  )}
 
                   {/* Slider */}
-                  <div className="pt-1">
-                    <input
-                      type="range"
-                      min="1"
-                      max={Math.min(300, remainingTokens)}
-                      value={tokenAmount}
-                      onChange={(e) => setTokenAmount(parseInt(e.target.value) || 1)}
-                      className="w-full accent-monte cursor-pointer"
-                    />
-                    <div className="flex justify-between text-[10px] text-tinta-muted font-mono font-medium">
-                      <span>1 token</span>
-                      <span>150 tokens</span>
-                      <span>300 tokens</span>
-                    </div>
+                  <div className="pt-0.5">
+                    {isPajuela ? (
+                      <>
+                        <input
+                          type="range"
+                          min="1"
+                          max={Math.min(300, remainingTokens)}
+                          value={tokenAmount}
+                          onChange={(e) => setTokenAmount(parseInt(e.target.value) || 1)}
+                          className="w-full accent-monte cursor-pointer"
+                        />
+                        <div className="flex justify-between text-[10px] text-tinta-muted font-mono font-medium">
+                          <span>1 dosis</span>
+                          <span>150 dosis</span>
+                          <span>300 dosis</span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <input
+                          type="range"
+                          min="0.1"
+                          max="4"
+                          step="0.1"
+                          value={equityAmount}
+                          onChange={(e) => setEquityAmount(parseFloat(e.target.value) || 0.1)}
+                          className="w-full accent-cuero cursor-pointer"
+                        />
+                        <div className="flex justify-between text-[10px] text-tinta-muted font-mono font-medium">
+                          <span>0.1 (1% toro)</span>
+                          <span>2.0 (20% toro)</span>
+                          <span>4.0 (40% toro)</span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
 
                 {/* Clear Financial Breakdown */}
-                <div className="mt-4 p-3.5 rounded-lg bg-crema-surface border border-crema-border space-y-2 text-xs">
-                  
+                <div className="p-3 rounded-lg bg-crema-surface border border-crema-border space-y-1.5 text-xs">
                   <div className="flex justify-between text-tinta-muted">
-                    <span>Subtotal Fracciones:</span>
+                    <span>{isPajuela ? 'Subtotal Dosis Seminales:' : 'Subtotal Participación Animal:'}</span>
                     <span className="font-mono text-tinta font-semibold">${totalCostUSDC.toLocaleString()} USDC</span>
                   </div>
 
                   <div className="flex justify-between text-tinta-muted">
-                    <span>Costo de Red Hedera:</span>
+                    <span>Costo Red Hedera HTS:</span>
                     <span className="font-mono text-tinta font-medium">&lt;$0.001 USD</span>
                   </div>
 
@@ -556,37 +675,38 @@ export default function BullDetailModal({
 
                   <div className="pt-2 border-t border-crema-border flex justify-between items-center">
                     <span className="font-heading font-extrabold text-tinta text-sm">Total a Pagar:</span>
-                    <span className="text-lg font-heading font-extrabold text-monte font-mono">
+                    <span className="text-base font-heading font-extrabold text-monte font-mono">
                       ${totalCostUSDC.toLocaleString()} USDC
                     </span>
                   </div>
-
                 </div>
 
                 {/* Yield Projection Disclaimer */}
-                <div className="mt-3 p-2.5 rounded-lg bg-arena-light border border-arena-border text-[11px] text-tinta-light space-y-1">
+                <div className="p-2.5 rounded-lg bg-arena-light border border-arena-border text-[11px] text-tinta-light space-y-0.5">
                   <div className="flex justify-between text-tinta font-semibold">
                     <span>Proyección Anual Estimada:</span>
                     <span className="font-mono font-bold text-salvia">+${estimatedAnnualYieldUSDC.toLocaleString()} USDC/año</span>
                   </div>
                   <p className="text-[10px] text-tinta-muted leading-tight">
-                    * Estimación basada en volumen histórico de colocación de pajuelas y tasa de remate. Los rendimientos no están garantizados y dependen de las ventas físicas efectivas.
+                    {isPajuela 
+                      ? '* Rendimiento estimado por colocación física de pajuelas en remates ganaderos.'
+                      : '* Rendimiento estimado por plusvalía zootécnica de mercado + regalías vitalicias de semen.'}
                   </p>
                 </div>
 
                 {/* Balance */}
-                <div className="mt-3 text-[11px] text-tinta-muted flex justify-between">
-                  <span>Saldo disponible en HashPack:</span>
+                <div className="text-[11px] text-tinta-muted flex justify-between pt-0.5">
+                  <span>Saldo en HashPack:</span>
                   <span className="font-mono text-tinta font-bold">
                     ${investorBalance.toLocaleString()} USDC
                   </span>
                 </div>
 
                 {/* Main Action Button */}
-                <div className="mt-4">
+                <div className="pt-1">
                   <button
                     onClick={handleInvest}
-                    disabled={isInvesting || tokenAmount <= 0}
+                    disabled={isInvesting || (isPajuela ? tokenAmount <= 0 : equityAmount <= 0)}
                     className="w-full py-3 px-4 rounded-lg btn-action-primary text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm font-bold"
                   >
                     {isInvesting ? (
@@ -595,7 +715,9 @@ export default function BullDetailModal({
                         <span>Firmando en HashPack...</span>
                       </>
                     ) : (
-                      <span>Invertir con HashPack Wallet</span>
+                      <span>
+                        {isPajuela ? 'Adquirir Pajuelas con HashPack' : 'Adquirir Participación en el Toro'}
+                      </span>
                     )}
                   </button>
                 </div>
@@ -623,10 +745,10 @@ export default function BullDetailModal({
                 Transacción Confirmada
               </span>
               <h3 className="text-lg font-heading font-extrabold text-tinta mt-2">
-                Inversión realizada en {investSuccess.bullName}
+                Inversión confirmada en {investSuccess.bullName}
               </h3>
               <p className="text-xs text-tinta-muted mt-0.5">
-                Se han transferido {investSuccess.tokensPurchased} tokens ({investSuccess.bullName}) a tu billetera.
+                Se han acreditado exitosamente <strong>{investSuccess.assetLabel}</strong> en tu billetera HashPack.
               </p>
             </div>
 

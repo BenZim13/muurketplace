@@ -182,24 +182,31 @@ export default function Marketplace({
                 {/* Card Content & Metrics */}
                 <div className="p-4 space-y-3.5 bg-white">
                   
-                  {/* Price & Valuation */}
-                  <div className="flex items-center justify-between pb-2.5 border-b border-crema-border">
-                    <div>
-                      <span className="text-[10px] font-mono uppercase text-tinta-muted font-medium block">
-                        Precio por Fracción
-                      </span>
-                      <div className="text-lg font-heading font-extrabold text-tinta font-mono">
-                        ${bull.pricePerTokenUSDC.toFixed(2)} <span className="text-xs text-tinta-muted font-sans font-normal">USDC</span>
+                  {/* Dual Asset Pricing & Valuation */}
+                  <div className="pb-2.5 border-b border-crema-border space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] font-mono uppercase text-tinta-muted font-medium block">
+                          Dosis Seminal (PAJ)
+                        </span>
+                        <div className="text-base font-heading font-extrabold text-tinta font-mono">
+                          ${bull.pricePerTokenUSDC.toFixed(2)} <span className="text-xs text-tinta-muted font-sans font-normal">USDC</span>
+                        </div>
+                      </div>
+
+                      <div className="text-right">
+                        <span className="text-[10px] font-mono uppercase text-tinta-muted font-medium block">
+                          Copropiedad Toro (BULL)
+                        </span>
+                        <div className="text-xs font-mono font-bold text-cuero">
+                          ${(bull.valuationUSD * 0.1).toLocaleString()} USD <span className="text-[10px] text-tinta-muted font-sans font-normal">(10%)</span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="text-right">
-                      <span className="text-[10px] font-mono uppercase text-tinta-muted font-medium block">
-                        Tasación Oficial
-                      </span>
-                      <div className="text-xs font-mono font-bold text-cuero">
-                        ${bull.valuationUSD.toLocaleString()} USD
-                      </div>
+                    <div className="flex items-center justify-between text-[10px] font-mono text-tinta-muted pt-1 border-t border-crema-border/50">
+                      <span>Tasación Toro en Pie:</span>
+                      <span className="font-bold text-monte">${bull.valuationUSD.toLocaleString()} USD</span>
                     </div>
                   </div>
 
