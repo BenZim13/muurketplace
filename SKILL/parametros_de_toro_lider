@@ -1,0 +1,59 @@
+**Nombre de la Skill:** `ganaderia-pricing-engine`
+**Descripción:** Motor de validación biológica y tasación algorítmica para reproductores bovinos de élite (Toros Líderes). Evalúa métricas fenotípicas, mediciones ecográficas de carcasa y calidad seminal para determinar el valor de mercado del espécimen y de su genética (dosis seminales).
+**Razas Objetivo:** Braford, Brangus.
+
+### 1. Diccionario de Datos y Parámetros de Entrada (Input)
+El sistema requiere el ingreso estricto de las siguientes variables validadas por los sumarios de padres (ej. PEGBraf):
+
+*   **Datos Biométricos:**
+    *   `peso_nacer_kg`: (Decimal/Entero) Diferencia Esperada en la Progenie (DEP) para el peso al nacer.
+    *   `peso_destete_kg`: (Entero) DEP del peso al destete.
+    *   `edad_destete_dias`: (Entero) Edad del animal al momento de la medición del destete.
+    *   `peso_final_kg`: (Entero) DEP del peso a los 18 meses.
+    *   `edad_peso_final_dias`: (Entero) Edad del animal al momento de la medición del peso final.
+    *   `circunferencia_escrotal_cm`: (Decimal) Medida de fertilidad y precocidad.
+*   **Datos Ecográficos (Carcasa a 18 meses +/- 60 días):**
+    *   `area_ojo_bife_cm2` (AOB): (Decimal) Rendimiento carnicero.
+    *   `grasa_intramuscular_pct` (GI): (Booleano/Decimal) Pertenencia al Top 5% de marmóreo.
+*   **Datos de Laboratorio Seminal:**
+    *   `motilidad_seminal_pct`: (Entero) Porcentaje de espermatozoides con movimiento rectilíneo rápido.
+
+### 2. Reglas de Validación Estricta (Barreras de Entrada)
+Si el espécimen no cumple con TODAS estas validaciones, el motor debe rechazar la tasación por no calificar como "Toro Líder" o presentar inconsistencias en los datos:
+
+*   **Regla de Escala de Peso:** `peso_destete_kg` y `peso_final_kg` deben ser registrados con precisión de 1 kg exacto (se rechazan redondeos automáticos en escalas de 5 o 10).
+*   **Regla de Edad al Destete:** `edad_destete_dias` debe ser `>= 100` y `<= 300` días.
+*   **Regla de Edad Final:** `edad_peso_final_dias` debe ser `>= 450` y `<= 730` días.
+*   **Regla de Circunferencia Escrotal:** `circunferencia_escrotal_cm` debe ser `>= +1.5`.
+*   **Regla de Viabilidad Seminal:** `motilidad_seminal_pct` debe ser `>= 70%`.
+
+### 3. Valores Base de Referencia
+*   `VALOR_BASE_TORO`: $30,000 USD (Piso comercial para un Padre de Centro probado).
+*   `VALOR_BASE_DOSIS`: $10 USD (Piso comercial para una pajuela de semen).
+
+### 4. Motor de Tasación Matemática (Multiplicadores)
+El algoritmo calcula el factor multiplicador total (`M_TOTAL`) partiendo de `1.0` (100% del valor base). Los multiplicadores son aditivos en base a los umbrales superados.
+
+**Fórmula de Multiplicadores:**
+1.  **Facilidad de Parto (Peso al Nacer):**
+    *   Si `peso_nacer_kg <= 0.0` (Top 1%) -> Sumar `+0.50` a `M_TOTAL`.
+2.  **Rentabilidad por Crecimiento:**
+    *   Si `peso_destete_kg > +15.0` AND `peso_final_kg > +30.0` -> Sumar `+0.15` a `M_TOTAL`.
+3.  **Rendimiento Carnicero (Área de Ojo de Bife - AOB):**
+    *   Si `area_ojo_bife_cm2 >= +3.0` (Top 1-5%) -> Sumar `+0.50` a `M_TOTAL`.
+    *   *Alternativa:* Si `area_ojo_bife_cm2 >= +2.0` y `< +3.0` (Top 20%) -> Sumar `+0.20` a `M_TOTAL`. (No acumulable con el anterior).
+4.  **Calidad Premium (Grasa Intramuscular - GI):**
+    *   Si `grasa_intramuscular_pct` está en el Top 5% (Verdadero) -> Sumar `+0.30` a `M_TOTAL`.
+
+### 5. Cálculo Final (Output)
+Una vez obtenido el `M_TOTAL`, la plataforma ejecutará la siguiente fórmula para arrojar el valor tasado del espécimen y su producción:
+
+*   **TASACIÓN FINAL DEL TORO:** `VALOR_BASE_TORO * M_TOTAL`
+*   **TASACIÓN FINAL POR DOSIS (PAJUELA):** `VALOR_BASE_DOSIS * M_TOTAL`
+
+**Ejemplo de Ejecución:**
+Si un toro ingresa con `peso_nacer_kg = -0.5`, `peso_destete_kg = +16`, `peso_final_kg = +32`, `area_ojo_bife_cm2 = +3.2`, `grasa_intramuscular_pct = Top 5%`, `circunferencia_escrotal_cm = +2.0`, y `motilidad = 80%`:
+*   Validaciones: Aprobadas.
+*   Cálculo: `1.0 (Base) + 0.50 (PN) + 0.15 (Crecimiento) + 0.50 (AOB) + 0.30 (GI) = 2.45`
+*   Tasación Toro: `$30,000 * 2.45 = $73,500 USD`.
+*   Tasación Dosis: `$10 * 2.45 = $24.50 USD`.
