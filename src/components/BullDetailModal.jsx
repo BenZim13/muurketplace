@@ -45,7 +45,9 @@ export default function BullDetailModal({
         tokensPurchased: tokenAmount,
         totalCost: totalCostUSDC,
         txHash,
-        hashScanUrl: `https://hashscan.io/testnet/transaction/${txHash}`
+        tokenUrl: `https://hashscan.io/testnet/token/${bull.htsTokenId}`,
+        txUrl: `https://hashscan.io/testnet/transaction/${txHash}`,
+        tokenId: bull.htsTokenId
       });
 
       confetti({
@@ -634,22 +636,40 @@ export default function BullDetailModal({
                 <span className="font-mono font-bold text-tinta">${investSuccess.totalCost.toFixed(2)} USDC</span>
               </div>
               <div className="flex justify-between">
+                <span className="text-tinta-muted">Token HTS Adquirido:</span>
+                <a 
+                  href={investSuccess.tokenUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-mono text-monte font-bold hover:underline flex items-center gap-1"
+                >
+                  <span>{investSuccess.tokenId}</span>
+                  <ExternalLink className="w-3 h-3 text-esmeralda" />
+                </a>
+              </div>
+              <div className="flex justify-between">
                 <span className="text-tinta-muted">Transacción Hedera:</span>
-                <span className="font-mono text-cuero text-[11px] font-semibold truncate max-w-[200px]">
-                  {investSuccess.txHash}
-                </span>
+                <a
+                  href={investSuccess.txUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-mono text-cuero text-[11px] font-semibold truncate max-w-[200px] hover:underline flex items-center gap-1"
+                >
+                  <span>{investSuccess.txHash}</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </a>
               </div>
             </div>
 
             <div className="flex gap-2.5 pt-2">
               <a
-                href={investSuccess.hashScanUrl}
+                href={investSuccess.tokenUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="flex-1 py-2 px-3 rounded-lg bg-crema-surface hover:bg-crema-border border border-crema-border text-tinta text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
               >
-                <span>Ver en HashScan</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Auditar en HashScan</span>
+                <ExternalLink className="w-3.5 h-3.5 text-esmeralda" />
               </a>
 
               <button

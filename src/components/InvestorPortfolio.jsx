@@ -3,7 +3,9 @@ import {
   ArrowDownLeft, 
   ArrowUpRight, 
   RefreshCw,
-  Coins
+  Coins,
+  ExternalLink,
+  ShieldCheck
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -76,7 +78,44 @@ export default function InvestorPortfolio({
               ${investorData.walletBalanceUSDC.toLocaleString()} USDC
             </span>
           </div>
+
+          <a
+            href={`https://hashscan.io/testnet/account/${investorData.hederaAccountId}`}
+            target="_blank"
+            rel="noreferrer"
+            className="p-2.5 rounded-xl bg-white hover:bg-crema-surface border border-crema-border text-tinta-muted hover:text-monte transition-colors shadow-sm flex items-center gap-1.5 text-xs font-mono font-semibold"
+            title="Consultar mi Cuenta en HashScan Explorer"
+          >
+            <span>{investorData.hederaAccountId}</span>
+            <ExternalLink className="w-3.5 h-3.5 text-esmeralda" />
+          </a>
         </div>
+      </div>
+
+      {/* Hedera Decentralized Sovereign Guarantee Banner */}
+      <div className="p-4 rounded-xl bg-white border border-crema-border shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-salvia-light text-salvia border border-salvia/20 flex items-center justify-center flex-shrink-0">
+            <ShieldCheck className="w-5 h-5" />
+          </div>
+          <div>
+            <p className="font-heading font-bold text-tinta">
+              Garantía de Soberanía Descentralizada Hedera Hashgraph
+            </p>
+            <p className="text-[11px] text-tinta-muted">
+              Tus tokens HTS y transacciones residen directamente en tu cuenta de Hedera. Si Muurket dejara de existir, tus activos son inalterables y puedes transferirlos o consultarlos libremente en HashScan o cualquier wallet compatible.
+            </p>
+          </div>
+        </div>
+        <a
+          href={`https://hashscan.io/testnet/account/${investorData.hederaAccountId}`}
+          target="_blank"
+          rel="noreferrer"
+          className="px-3 py-1.5 rounded-lg bg-crema-surface hover:bg-crema-border border border-crema-border text-monte text-xs font-semibold flex items-center gap-1.5 shadow-sm whitespace-nowrap transition-colors flex-shrink-0 font-mono"
+        >
+          <span>Auditar en HashScan</span>
+          <ExternalLink className="w-3 h-3 text-esmeralda" />
+        </a>
       </div>
 
       {/* Main KPI Row with Claim Yield Card */}
@@ -290,10 +329,20 @@ export default function InvestorPortfolio({
                   </div>
                 </div>
 
-                <div className="p-4 pt-2 bg-white border-t border-crema-border/50">
+                <div className="p-4 pt-2 bg-white border-t border-crema-border/50 flex gap-2">
+                  <a
+                    href={`https://hashscan.io/testnet/token/${item.htsTokenId}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-2 rounded-lg bg-crema-surface hover:bg-crema-border border border-crema-border text-tinta-muted hover:text-monte transition-colors flex items-center justify-center flex-shrink-0"
+                    title="Ver Token HTS en HashScan Explorer"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+
                   <button
                     onClick={() => fullBull && onSelectBull(fullBull)}
-                    className="w-full py-2 px-3 rounded-lg btn-action-primary text-white text-xs font-heading font-semibold transition-all text-center shadow-sm"
+                    className="flex-1 py-2 px-3 rounded-lg btn-action-primary text-white text-xs font-heading font-semibold transition-all text-center shadow-sm"
                   >
                     Ver Ficha o Adquirir Más
                   </button>
@@ -315,9 +364,16 @@ export default function InvestorPortfolio({
               Cobros de dividendos y adquisiciones de tokens registrados en Hedera.
             </p>
           </div>
-          <span className="text-xs font-mono text-tinta-muted font-semibold bg-crema-surface px-2.5 py-1 rounded-md border border-crema-border">
-            Cuenta: {investorData.hederaAccountId}
-          </span>
+          <a
+            href={`https://hashscan.io/testnet/account/${investorData.hederaAccountId}`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-xs font-mono text-monte font-semibold bg-crema-surface hover:bg-crema-border px-2.5 py-1 rounded-md border border-crema-border flex items-center gap-1.5 transition-colors"
+            title="Auditar cuenta en HashScan Explorer"
+          >
+            <span>Cuenta: {investorData.hederaAccountId}</span>
+            <ExternalLink className="w-3 h-3 text-esmeralda" />
+          </a>
         </div>
 
         <div className="divide-y divide-crema-border">
@@ -331,9 +387,16 @@ export default function InvestorPortfolio({
                 </div>
                 <div>
                   <p className="font-bold text-tinta">{tx.title}</p>
-                  <p className="text-[10px] text-tinta-muted font-mono">
-                    Tx: {tx.txHash} · {tx.date}
-                  </p>
+                  <a
+                    href={`https://hashscan.io/testnet/transaction/${tx.txHash}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[10px] text-tinta-muted hover:text-monte font-mono inline-flex items-center gap-1 hover:underline transition-colors"
+                    title="Auditar en HashScan"
+                  >
+                    <span>Tx: {tx.txHash} · {tx.date}</span>
+                    <ExternalLink className="w-2.5 h-2.5 text-tinta-muted" />
+                  </a>
                 </div>
               </div>
 

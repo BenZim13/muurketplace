@@ -197,9 +197,16 @@ export default function SellerWallet({ sellerData }) {
                 </div>
                 <div className="truncate">
                   <p className="font-semibold text-tinta truncate">{tx.desc}</p>
-                  <p className="text-[10px] text-tinta-muted font-mono">
-                    Tx: {tx.txHash} · {tx.date}
-                  </p>
+                  <a
+                    href={`https://hashscan.io/testnet/transaction/${tx.txHash}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[10px] text-tinta-muted hover:text-monte font-mono inline-flex items-center gap-1 hover:underline transition-colors"
+                    title="Auditar en HashScan"
+                  >
+                    <span>Tx: {tx.txHash} · {tx.date}</span>
+                    <ExternalLink className="w-2.5 h-2.5 text-tinta-muted" />
+                  </a>
                 </div>
               </div>
 

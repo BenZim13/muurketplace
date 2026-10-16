@@ -5,10 +5,10 @@
 
 // Símbolos y nombres de los tokens del par por animal/lote.
 const PAJ_BRAF = {
-  name: "Muurka PAJ-BRAF",
-  symbol: "PAJ",
+  name: "Genética Braford PAJ-BRAF",
+  symbol: "PAJ-BRAF",
   decimals: 0,
-  maxSupply: null, // ilimitado por lote; la cantidad se controla por el supply de BULL y reglas de negocio
+  maxSupply: null,
 };
 
 const BULL = {
@@ -19,27 +19,31 @@ const BULL = {
 };
 
 // Carga la configuración de tokens desde un object config (o process.env simulado).
-// Devuelve un objeto plano con los parámetros necesarios para los token managers.
-// Si no se provee `env`, usa los valores por defecto (útil para tests con dobles).
 function loadTokenConfig(env) {
   const source = env || {};
+  const network = source.HEDERA_NETWORK || "testnet";
 
-  // PAJ-BRAF: siempre 0 decimales, nombre/símbolo fijos
-  const paj = { ...PAJ_BRAF };
-  // BULL: siempre 4 decimales, supply máximo 10, nombre/símbolo fijos
-  const bull = { ...BULL, supply: typeof source.bullSupply === "number" && source.bullSupply > 0 && source.bullSupply <= 10 ? source.bullSupply : 10 };
+  const rawContractId =
+    source.MURKETPLACE_ATOMIC_CONTRACT_ID !== undefined
+      ? source.MURKETPLACE_ATOMIC_CONTRACT_ID
+      : source.MARKETPLACE_CONTRACT_ID !== undefined
+      ? source.MARKETPLACE_CONTRACT_ID
+      : source.contractId !== undefined
+      ? source.contractId
+      : null;
 
-  // contractId de MuurketplaceAtomic: si viene en la config, se valida formato; si no, null
   let contractId = null;
-  const rawContractId = source.contractId;
-  if (typeof rawContractId === "string" && rawContractId !== "") {
-    // Formato Hedera: 0.0.<número>
-    if (/^0\.0\.\d+$/.test(rawContractId)) {
-      contractId = rawContractId;
+  if (rawContractId !== null && rawContractId !== undefined && rawContractId !== "") {
+    if (!/^0\.0\.\d+$/.test(rawContractId)) {
+      throw new Error("configuración inválida: contractId debe tener formato 0.0.<número>");
     }
+    contractId = rawContractId;
   }
 
-  return { paj, bull, contractId };
+  const pajBraf = { ...PAJ_BRAF };
+  const bull = { ...BULL };
+
+  return { network, contractId, pajBraf, bull, paj: pajBraf };
 }
 
-module.exports = { loadTokenConfig };
+module.exports = { loadTokenConfig, PAJ_BRAF, BULL };

@@ -6,8 +6,8 @@
 
 // Configuración por defecto PAJ-BRAF (valores constantes, sin importar el SDK)
 const PAJ_BRAF = {
-  name: "Muurka PAJ-BRAF",
-  symbol: "PAJ",
+  name: "Genética Braford PAJ-BRAF",
+  symbol: "PAJ-BRAF",
   decimals: 0,
 };
 
@@ -56,27 +56,57 @@ function mintPajBrafToken({ deps, tokenId, amount, }) {
   return mintTx;
 }
 
-// Flujo completo: create + mint. Recibe deps inyectables y config.
-// Devrece un objeto con createTx, mintTx y metadatos (sin imprimir claves).
-function createAndMintPajBrafToken({ deps, treasuryAccountId, adminKey, mintAmount, }) {
-  const createTx = createPajBrafToken({ deps, treasuryAccountId, adminKey });
-  const mintTx = mintPajBrafToken({ deps, tokenId: null, amount: mintAmount });
+// Flujo completo: create + mint según Spec 005 RF-01.
+async function tokenizePajBraf(client, options = {}, deps = {}) {
+  const { treasuryAccountId, pajuelaCount, adminKey, supplyKey, tokenName, tokenSymbol } = options;
 
-  // En implementación real contra Testnet, aquí se firmarían y ejecutarían
-  // las transacciones, y se retornaría el receipt con tokenId.
-  // Para tests con SDK falso, los dobles proveen el receipt directamente.
+  if (pajuelaCount === undefined || pajuelaCount === null || typeof pajuelaCount !== "number" || pajuelaCount <= 0 || !Number.isInteger(pajuelaCount)) {
+    throw new Error("pajuelaCount entero mayor a 0 requerido para emitir PAJ-BRAF");
+  }
+  if (!adminKey) {
+    throw new Error("adminKey requerida para crear token PAJ-BRAF");
+  }
+  if (!supplyKey) {
+    throw new Error("supplyKey requerida para crear token PAJ-BRAF");
+  }
+  if (!treasuryAccountId || typeof treasuryAccountId !== "string" || !/^0\.0\.\d+$/.test(treasuryAccountId)) {
+    throw new Error("treasuryAccountId requerida con formato 0.0.<n> para crear token PAJ-BRAF");
+  }
+
+  const sdk = deps && deps.sdk ? deps.sdk : require("@hashgraph/sdk");
+
+  const createTx = new sdk.TokenCreateTransaction()
+    .setTokenName(tokenName || PAJ_BRAF.name)
+    .setTokenSymbol(tokenSymbol || PAJ_BRAF.symbol)
+    .setDecimals(PAJ_BRAF.decimals)
+    .setInitialSupply(0)
+    .setTreasuryAccountId(treasuryAccountId)
+    .setAdminKey(adminKey)
+    .setSupplyKey(supplyKey);
+
+  const createResponse = await createTx.execute(client);
+  const createReceipt = await createResponse.getReceipt(client);
+  const tokenId = createReceipt.tokenId.toString();
+
+  const mintTx = new sdk.TokenMintTransaction()
+    .setTokenId(tokenId)
+    .setAmount(pajuelaCount);
+
+  const mintResponse = await mintTx.execute(client);
+  await mintResponse.getReceipt(client);
+  const txId = mintResponse.transactionId ? mintResponse.transactionId.toString() : "";
 
   return {
-    createTx,
-    mintTx,
-    // tokenId vendrá del receipt del createTx en ejecución real
+    tokenId,
+    supply: pajuelaCount,
+    txId,
   };
 }
 
-// Exporta la configuración para que los tests puedan verificar constantes
+// Exporta las funciones y constantes
 module.exports = {
   createPajBrafToken,
   mintPajBrafToken,
-  createAndMintPajBrafToken,
+  tokenizePajBraf,
   PAJ_BRAF,
 };
