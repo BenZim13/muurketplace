@@ -60,15 +60,15 @@ export default function SellerWallet({ sellerData }) {
     <div className="space-y-6">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-verdeSuave/10">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-crema-border">
         <div>
-          <span className="text-[10px] uppercase font-mono tracking-widest text-piedra px-2 py-0.5 rounded bg-monte-dark border border-verdeSuave/10">
+          <span className="text-[10px] uppercase font-mono tracking-widest text-tinta-muted px-2 py-0.5 rounded bg-crema-surface border border-crema-border">
             Tesorería Cabaña Ganadera
           </span>
-          <h1 className="text-2xl font-heading font-extrabold text-blanco mt-1">
+          <h1 className="text-2xl font-heading font-extrabold text-tinta mt-1">
             Wallet y Liquidaciones Financieras
           </h1>
-          <p className="text-xs text-piedra">
+          <p className="text-xs text-tinta-muted">
             Fondos en custodia por financiamiento de reproductores y liquidación de dosis físicas.
           </p>
         </div>
@@ -76,7 +76,7 @@ export default function SellerWallet({ sellerData }) {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setWithdrawModalOpen(true)}
-            className="px-4 py-2 rounded-lg btn-action-leather text-xs flex items-center gap-2 shadow-sm"
+            className="px-4 py-2 rounded-lg btn-action-leather text-xs flex items-center gap-2 shadow-sm font-semibold"
           >
             <Landmark className="w-4 h-4" />
             <span>Retirar a CBU Bancario (ARS)</span>
@@ -88,54 +88,55 @@ export default function SellerWallet({ sellerData }) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         
         {/* Available USDC Card */}
-        <div className="muurket-panel p-6 border-verdeSuave/20 flex flex-col justify-between">
+        <div className="bg-white rounded-xl border border-crema-border p-6 shadow-card flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between text-piedra text-xs mb-1.5">
+            <div className="flex items-center justify-between text-tinta-muted text-xs mb-1.5">
               <span>Saldo Disponible Recaudado</span>
               <span className="status-dot-active"></span>
             </div>
-            <div className="text-3xl font-heading font-bold text-blanco">
-              ${sellerData.walletBalanceUSDC.toLocaleString()} <span className="text-sm font-normal text-piedra">USDC</span>
+            <div className="text-3xl font-heading font-bold text-tinta">
+              ${sellerData.walletBalanceUSDC.toLocaleString()} <span className="text-sm font-normal text-tinta-muted">USDC</span>
             </div>
-            <p className="text-xs text-crema mt-1.5 font-mono">
+            <p className="text-xs text-cuero mt-1.5 font-mono font-medium">
               ≈ ${(sellerData.walletBalanceUSDC * usdcToArsRate).toLocaleString()} ARS
             </p>
           </div>
-          <div className="mt-4 pt-3 border-t border-verdeSuave/10 flex justify-between text-[11px] text-piedra">
+          <div className="mt-4 pt-3 border-t border-crema-border flex justify-between text-[11px] text-tinta-muted">
             <span>Disponibilidad inmediata</span>
-            <span className="text-esmeralda">Sin comisiones de custodia</span>
+            <span className="text-esmeralda font-semibold">Sin comisiones de custodia</span>
           </div>
         </div>
 
         {/* Hedera Treasury Account Card */}
-        <div className="muurket-card p-6 flex flex-col justify-between">
+        <div className="bg-white rounded-xl border border-crema-border p-6 shadow-card flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between text-piedra text-xs mb-1.5">
+            <div className="flex items-center justify-between text-tinta-muted text-xs mb-1.5">
               <span>Cuenta Tesorería Hedera</span>
               <ShieldCheck className="w-4 h-4 text-esmeralda" />
             </div>
             <div className="flex items-center gap-2 my-1">
-              <span className="text-lg font-mono font-bold text-blanco">
+              <span className="text-lg font-mono font-bold text-tinta">
                 {sellerData.hederaAccountId}
               </span>
               <button 
                 onClick={copyAddress}
-                className="p-1 rounded hover:bg-monte text-piedra hover:text-blanco transition-colors"
+                className="p-1 rounded hover:bg-crema-surface text-tinta-muted hover:text-tinta transition-colors"
+                title="Copiar ID"
               >
                 {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-esmeralda" /> : <Copy className="w-3.5 h-3.5" />}
               </button>
             </div>
-            <div className="text-xs text-piedra font-mono mt-1">
-              Reserva de Gas: <strong className="text-crema">{sellerData.walletBalanceHBAR.toLocaleString()} HBAR</strong>
+            <div className="text-xs text-tinta-muted font-mono mt-1">
+              Reserva de Gas: <strong className="text-monte font-semibold">{sellerData.walletBalanceHBAR.toLocaleString()} HBAR</strong>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-verdeSuave/10 flex items-center justify-between text-[11px]">
-            <span className="text-piedra">Trazabilidad pública</span>
+          <div className="mt-4 pt-3 border-t border-crema-border flex items-center justify-between text-[11px]">
+            <span className="text-tinta-muted">Trazabilidad pública</span>
             <a 
               href={`https://hashscan.io/testnet/account/${sellerData.hederaAccountId}`}
               target="_blank"
               rel="noreferrer"
-              className="text-esmeralda hover:underline flex items-center gap-1 font-mono"
+              className="text-esmeralda hover:underline flex items-center gap-1 font-mono font-medium"
             >
               <span>HashScan</span>
               <ExternalLink className="w-3 h-3" />
@@ -144,69 +145,69 @@ export default function SellerWallet({ sellerData }) {
         </div>
 
         {/* Straws Stock */}
-        <div className="muurket-card p-6 flex flex-col justify-between">
+        <div className="bg-white rounded-xl border border-crema-border p-6 shadow-card flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between text-piedra text-xs mb-1.5">
+            <div className="flex items-center justify-between text-tinta-muted text-xs mb-1.5">
               <span>Stock Físico en Criocentro</span>
-              <span className="px-2 py-0.5 rounded bg-monte-dark text-cuero text-[10px] font-mono border border-verdeSuave/10">
+              <span className="px-2 py-0.5 rounded bg-salvia-light text-salvia text-[10px] font-mono border border-salvia/20 font-semibold">
                 Nitrógeno Líquido
               </span>
             </div>
-            <div className="text-3xl font-heading font-bold text-blanco">
-              {sellerData.totalStrawsDistributed.toLocaleString()} <span className="text-sm font-normal text-piedra">Pajuelas</span>
+            <div className="text-3xl font-heading font-bold text-tinta">
+              {sellerData.totalStrawsDistributed.toLocaleString()} <span className="text-sm font-normal text-tinta-muted">Pajuelas</span>
             </div>
-            <p className="text-xs text-piedra mt-1">
+            <p className="text-xs text-tinta-muted mt-1">
               Centro Genético Litoral SENASA #BA-912
             </p>
           </div>
-          <div className="mt-4 pt-3 border-t border-verdeSuave/10 flex justify-between text-[11px] text-piedra">
+          <div className="mt-4 pt-3 border-t border-crema-border flex justify-between text-[11px] text-tinta-muted">
             <span>Próximo cierre de remate:</span>
-            <span className="text-blanco font-medium">30 de Marzo 2026</span>
+            <span className="text-tinta font-semibold">30 de Marzo 2026</span>
           </div>
         </div>
 
       </div>
 
       {/* Transactions Table Ledger */}
-      <div className="muurket-card p-6 space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-verdeSuave/10">
+      <div className="bg-white rounded-xl border border-crema-border p-6 shadow-card space-y-4">
+        <div className="flex items-center justify-between pb-3 border-b border-crema-border">
           <div>
-            <h3 className="text-base font-heading font-bold text-blanco">
+            <h3 className="text-base font-heading font-bold text-tinta">
               Libro Contable de Operaciones en Red
             </h3>
-            <p className="text-xs text-piedra">
+            <p className="text-xs text-tinta-muted">
               Registro inmutable de ingresos por colocación de tokens y egresos por liquidación bancaria.
             </p>
           </div>
-          <span className="text-xs font-mono text-piedra">
+          <span className="text-xs font-mono text-tinta-muted px-2 py-1 rounded bg-crema-surface border border-crema-border">
             Auditoría HTS 0.0.482910
           </span>
         </div>
 
-        <div className="divide-y divide-verdeSuave/10 overflow-x-auto">
+        <div className="divide-y divide-crema-border overflow-x-auto">
           {transactions.map((tx) => (
-            <div key={tx.id} className="py-3 flex items-center justify-between gap-4 text-xs hover:bg-monte-dark/30 px-2 rounded transition-colors">
+            <div key={tx.id} className="py-3 flex items-center justify-between gap-4 text-xs hover:bg-crema-surface/60 px-2 rounded transition-colors">
               <div className="flex items-center gap-3 min-w-0">
-                <div className={`w-7 h-7 rounded flex items-center justify-center flex-shrink-0 ${
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
                   tx.type === 'in' 
-                    ? 'bg-monte text-esmeralda' 
-                    : 'bg-cuero/20 text-cuero'
+                    ? 'bg-salvia-light text-esmeralda border border-salvia/20' 
+                    : 'bg-cuero/10 text-cuero border border-cuero/20'
                 }`}>
                   {tx.type === 'in' ? <ArrowDownLeft className="w-4 h-4" /> : <ArrowUpRight className="w-4 h-4" />}
                 </div>
                 <div className="truncate">
-                  <p className="font-medium text-blanco truncate">{tx.desc}</p>
-                  <p className="text-[10px] text-piedra font-mono">
+                  <p className="font-semibold text-tinta truncate">{tx.desc}</p>
+                  <p className="text-[10px] text-tinta-muted font-mono">
                     Tx: {tx.txHash} · {tx.date}
                   </p>
                 </div>
               </div>
 
               <div className="text-right flex-shrink-0">
-                <p className={`font-mono font-bold text-sm ${tx.type === 'in' ? 'text-blanco' : 'text-piedra'}`}>
+                <p className={`font-mono font-bold text-sm ${tx.type === 'in' ? 'text-esmeralda' : 'text-cuero'}`}>
                   {tx.amount}
                 </p>
-                <span className="text-[10px] font-mono text-piedra">
+                <span className="text-[10px] font-mono text-tinta-muted">
                   {tx.status}
                 </span>
               </div>
@@ -217,20 +218,22 @@ export default function SellerWallet({ sellerData }) {
 
       {/* Withdraw Modal */}
       {withdrawModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-profundo-dark/85 backdrop-blur-md animate-in fade-in">
-          <div className="w-full max-w-md muurket-panel p-6 border-verdeSuave/25 shadow-elevated space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-tinta/60 backdrop-blur-sm animate-in fade-in">
+          <div className="w-full max-w-md bg-white rounded-2xl p-6 border border-crema-border shadow-elevated space-y-4">
             
-            <div className="flex items-center justify-between pb-3 border-b border-verdeSuave/10">
+            <div className="flex items-center justify-between pb-3 border-b border-crema-border">
               <div className="flex items-center gap-2">
-                <Landmark className="w-4 h-4 text-cuero" />
-                <h3 className="text-sm font-heading font-bold text-blanco">Liquidación a Cuenta Bancaria (ARS)</h3>
+                <div className="w-8 h-8 rounded-lg bg-cuero/10 text-cuero flex items-center justify-center">
+                  <Landmark className="w-4 h-4" />
+                </div>
+                <h3 className="text-sm font-heading font-bold text-tinta">Liquidación a Cuenta Bancaria (ARS)</h3>
               </div>
               <button 
                 onClick={() => {
                   setWithdrawModalOpen(false);
                   setWithdrawSuccess(false);
                 }}
-                className="text-piedra hover:text-blanco text-sm"
+                className="text-tinta-muted hover:text-tinta text-sm p-1 rounded hover:bg-crema-surface"
               >
                 ✕
               </button>
@@ -239,7 +242,7 @@ export default function SellerWallet({ sellerData }) {
             {!withdrawSuccess ? (
               <div className="space-y-3.5 text-xs">
                 <div>
-                  <label className="block text-crema font-medium mb-1">
+                  <label className="block text-tinta font-semibold mb-1">
                     Monto en USDC a Retirar
                   </label>
                   <div className="relative">
@@ -247,19 +250,19 @@ export default function SellerWallet({ sellerData }) {
                       type="number"
                       value={withdrawAmount}
                       onChange={(e) => setWithdrawAmount(e.target.value)}
-                      className="w-full muurket-input font-mono text-sm"
+                      className="w-full muurket-input font-mono text-sm pr-16"
                     />
-                    <span className="absolute right-3 top-2.5 text-piedra font-mono text-xs">
+                    <span className="absolute right-3 top-2.5 text-tinta-muted font-mono text-xs font-semibold">
                       USDC
                     </span>
                   </div>
-                  <p className="text-[11px] text-crema mt-1 font-mono">
+                  <p className="text-[11px] text-cuero mt-1 font-mono font-medium">
                     Acreditación estimada: ${(parseFloat(withdrawAmount || 0) * usdcToArsRate).toLocaleString()} ARS
                   </p>
                 </div>
 
                 <div>
-                  <label className="block text-crema font-medium mb-1">
+                  <label className="block text-tinta font-semibold mb-1">
                     Entidad Bancaria de Destino
                   </label>
                   <select className="w-full muurket-input text-xs">
@@ -271,7 +274,7 @@ export default function SellerWallet({ sellerData }) {
                 </div>
 
                 <div>
-                  <label className="block text-crema font-medium mb-1">
+                  <label className="block text-tinta font-semibold mb-1">
                     CBU / Alias
                   </label>
                   <input
@@ -280,21 +283,21 @@ export default function SellerWallet({ sellerData }) {
                     onChange={(e) => setBankAlias(e.target.value)}
                     className="w-full muurket-input font-mono uppercase"
                   />
-                  <span className="text-[10px] text-piedra">Titular: Cabaña Los Guaraníes S.A. (CUIT 30-71289104-9)</span>
+                  <span className="text-[10px] text-tinta-muted">Titular: Cabaña Los Guaraníes S.A. (CUIT 30-71289104-9)</span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-monte-dark/60 border border-verdeSuave/10 text-[11px] text-piedra">
+                <div className="p-3 rounded-lg bg-crema-surface border border-crema-border text-[11px] text-tinta-muted">
                   Transferencia inmediata a cuenta verificada según normativa cambiaria vigente.
                 </div>
 
                 <button
                   onClick={handleWithdraw}
                   disabled={isProcessing || !withdrawAmount}
-                  className="w-full py-2.5 rounded-lg btn-action-leather text-xs font-heading font-bold flex items-center justify-center gap-2"
+                  className="w-full py-2.5 rounded-lg btn-action-leather text-xs font-heading font-bold flex items-center justify-center gap-2 shadow-sm"
                 >
                   {isProcessing ? (
                     <>
-                      <RefreshCw className="w-4 h-4 animate-spin text-blanco" />
+                      <RefreshCw className="w-4 h-4 animate-spin text-white" />
                       <span>Procesando acreditación...</span>
                     </>
                   ) : (
@@ -304,19 +307,19 @@ export default function SellerWallet({ sellerData }) {
               </div>
             ) : (
               <div className="text-center py-4 space-y-3">
-                <div className="w-10 h-10 mx-auto rounded-full bg-monte text-esmeralda flex items-center justify-center text-lg">
+                <div className="w-12 h-12 mx-auto rounded-full bg-salvia-light text-esmeralda border border-esmeralda/20 flex items-center justify-center text-xl font-bold">
                   ✓
                 </div>
-                <h4 className="text-sm font-heading font-bold text-blanco">Liquidación Registrada</h4>
-                <p className="text-xs text-piedra">
-                  Se ordenó la acreditación de ${(parseFloat(withdrawAmount) * usdcToArsRate).toLocaleString()} ARS en {bankAlias}.
+                <h4 className="text-sm font-heading font-bold text-tinta">Liquidación Registrada</h4>
+                <p className="text-xs text-tinta-muted">
+                  Se ordenó la acreditación de ${(parseFloat(withdrawAmount) * usdcToArsRate).toLocaleString()} ARS en <strong className="text-tinta">{bankAlias}</strong>.
                 </p>
                 <button
                   onClick={() => {
                     setWithdrawModalOpen(false);
                     setWithdrawSuccess(false);
                   }}
-                  className="px-4 py-2 rounded-lg bg-monte hover:bg-monte-light text-blanco text-xs font-medium"
+                  className="px-5 py-2 rounded-lg bg-monte hover:bg-monte-light text-white text-xs font-semibold shadow-sm transition-colors"
                 >
                   Cerrar
                 </button>

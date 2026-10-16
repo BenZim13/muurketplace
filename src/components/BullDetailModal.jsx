@@ -64,73 +64,73 @@ export default function BullDetailModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6 bg-profundo-dark/85 backdrop-blur-md overflow-y-auto animate-in fade-in">
-      <div className="w-full max-w-5xl muurket-panel border-verdeSuave/20 shadow-elevated overflow-hidden my-auto relative max-h-[92vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6 bg-tinta/50 backdrop-blur-md overflow-y-auto animate-in fade-in">
+      <div className="w-full max-w-5xl bg-white rounded-2xl border border-crema-border shadow-elevated overflow-hidden my-auto relative max-h-[92vh] flex flex-col">
         
         {/* Modal Topbar */}
-        <div className="px-5 py-3.5 bg-monte-dark/90 border-b border-verdeSuave/10 flex items-center justify-between flex-shrink-0">
+        <div className="px-5 py-3.5 bg-crema-surface border-b border-crema-border flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-2.5">
             <span className="status-dot-active"></span>
-            <span className="font-mono text-xs uppercase text-piedra">
+            <span className="font-mono text-xs uppercase text-tinta-muted font-medium">
               Ficha Técnica de Reproductor Bovino RWA
             </span>
-            <span className="text-verdeSuave/20">|</span>
-            <span className="text-xs text-crema font-mono font-medium">
+            <span className="text-crema-border">|</span>
+            <span className="text-xs text-cuero font-mono font-bold">
               Token HTS: {bull.htsTokenId}
             </span>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1 rounded-md hover:bg-monte text-piedra hover:text-blanco transition-colors"
+            className="p-1 rounded-md hover:bg-crema-border text-tinta-muted hover:text-tinta transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Scrollable Body */}
-        <div className="overflow-y-auto p-5 md:p-7 grid grid-cols-1 lg:grid-cols-12 gap-7">
+        <div className="overflow-y-auto p-5 md:p-7 grid grid-cols-1 lg:grid-cols-12 gap-7 bg-white">
           
           {/* Left Column: Biological Details (7 Cols) */}
           <div className="lg:col-span-7 space-y-5">
             
             {/* Bull Header Photo Banner */}
-            <div className="relative rounded-xl overflow-hidden h-60 border border-verdeSuave/15 shadow-sm">
+            <div className="relative rounded-xl overflow-hidden h-60 border border-crema-border shadow-sm">
               <img
                 src={bull.image}
                 alt={bull.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-profundo-dark via-profundo-dark/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-tinta/90 via-tinta/30 to-transparent" />
               
               <div className="absolute top-3 left-3 flex gap-2">
-                <span className="px-2.5 py-0.5 rounded bg-profundo/90 text-xs font-mono text-crema border border-verdeSuave/15">
+                <span className="px-2.5 py-0.5 rounded-md bg-white/95 text-xs font-mono text-tinta font-bold shadow-sm">
                   {bull.breed}
                 </span>
-                <span className="px-2.5 py-0.5 rounded bg-profundo/90 text-xs font-mono text-piedra border border-verdeSuave/10">
+                <span className="px-2.5 py-0.5 rounded-md bg-white/80 text-xs font-mono text-tinta-muted font-medium backdrop-blur-sm">
                   {bull.symbol}
                 </span>
               </div>
 
               <div className="absolute bottom-3 left-4 right-4">
-                <span className="text-xs text-crema font-medium">{bull.cabana}</span>
-                <h2 className="text-xl md:text-2xl font-heading font-extrabold text-blanco">
+                <span className="text-xs text-white/80 font-medium">{bull.cabana}</span>
+                <h2 className="text-xl md:text-2xl font-heading font-extrabold text-white">
                   {bull.name}
                 </h2>
-                <p className="text-xs text-piedra font-mono mt-0.5">
+                <p className="text-xs text-white/80 font-mono mt-0.5">
                   {bull.hbaRegister} · Caravana: {bull.tagCode} · {bull.location}
                 </p>
               </div>
             </div>
 
             {/* Technical Tabs Selector */}
-            <div className="flex border-b border-verdeSuave/10 gap-5 text-xs font-heading font-semibold">
+            <div className="flex border-b border-crema-border gap-5 text-xs font-heading font-semibold">
               <button
                 onClick={() => setActiveTab('biometrics')}
                 className={`pb-2.5 transition-colors ${
                   activeTab === 'biometrics'
-                    ? 'text-blanco border-b-2 border-esmeralda font-bold'
-                    : 'text-piedra hover:text-blanco'
+                    ? 'text-monte border-b-2 border-monte font-bold'
+                    : 'text-tinta-muted hover:text-tinta'
                 }`}
               >
                 DEPs & Biometría
@@ -140,8 +140,8 @@ export default function BullDetailModal({
                 onClick={() => setActiveTab('carcass')}
                 className={`pb-2.5 transition-colors ${
                   activeTab === 'carcass'
-                    ? 'text-blanco border-b-2 border-esmeralda font-bold'
-                    : 'text-piedra hover:text-blanco'
+                    ? 'text-monte border-b-2 border-monte font-bold'
+                    : 'text-tinta-muted hover:text-tinta'
                 }`}
               >
                 Ecografía Carcasa
@@ -151,8 +151,8 @@ export default function BullDetailModal({
                 onClick={() => setActiveTab('semen')}
                 className={`pb-2.5 transition-colors ${
                   activeTab === 'semen'
-                    ? 'text-blanco border-b-2 border-esmeralda font-bold'
-                    : 'text-piedra hover:text-blanco'
+                    ? 'text-monte border-b-2 border-monte font-bold'
+                    : 'text-tinta-muted hover:text-tinta'
                 }`}
               >
                 Laboratorio Seminal
@@ -162,8 +162,8 @@ export default function BullDetailModal({
                 onClick={() => setActiveTab('pedigree')}
                 className={`pb-2.5 transition-colors ${
                   activeTab === 'pedigree'
-                    ? 'text-blanco border-b-2 border-esmeralda font-bold'
-                    : 'text-piedra hover:text-blanco'
+                    ? 'text-monte border-b-2 border-monte font-bold'
+                    : 'text-tinta-muted hover:text-tinta'
                 }`}
               >
                 Pedigree & Oráculo
@@ -173,62 +173,62 @@ export default function BullDetailModal({
             {/* Tab 1: DEPs & Biometrics */}
             {activeTab === 'biometrics' && (
               <div className="space-y-3.5 animate-in fade-in text-xs">
-                <div className="flex items-center justify-between text-piedra pb-1">
+                <div className="flex items-center justify-between text-tinta-muted pb-1">
                   <span>Diferencias Esperadas en la Progenie (Sumario Oficial)</span>
-                  <span className="text-[10px] text-esmeralda font-mono">Verificado Asociación</span>
+                  <span className="text-[10px] text-salvia font-mono font-bold bg-salvia-light px-2 py-0.5 rounded border border-salvia-border">Verificado Asociación</span>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  <div className="p-3 rounded-lg muurket-solid space-y-1">
-                    <span className="text-piedra text-[11px] block">DEP Peso al Nacer</span>
-                    <span className="font-mono font-bold text-base text-blanco">
+                  <div className="p-3 rounded-lg bg-crema-surface border border-crema-border space-y-1">
+                    <span className="text-tinta-muted text-[11px] block">DEP Peso al Nacer</span>
+                    <span className="font-mono font-bold text-base text-tinta">
                       {bull.biometrics.peso_nacer_kg} kg
                     </span>
-                    <span className="text-[10px] text-crema block">
+                    <span className="text-[10px] text-cuero font-medium block">
                       {bull.biometrics.peso_nacer_percentile} (Facilidad de parto)
                     </span>
                   </div>
 
-                  <div className="p-3 rounded-lg muurket-solid space-y-1">
-                    <span className="text-piedra text-[11px] block">DEP Peso al Destete</span>
-                    <span className="font-mono font-bold text-base text-blanco">
+                  <div className="p-3 rounded-lg bg-crema-surface border border-crema-border space-y-1">
+                    <span className="text-tinta-muted text-[11px] block">DEP Peso al Destete</span>
+                    <span className="font-mono font-bold text-base text-tinta">
                       +{bull.biometrics.peso_destete_kg} kg
                     </span>
-                    <span className="text-[10px] text-piedra block">
+                    <span className="text-[10px] text-tinta-muted block">
                       Medición: {bull.biometrics.edad_destete_dias} días
                     </span>
                   </div>
 
-                  <div className="p-3 rounded-lg muurket-solid space-y-1">
-                    <span className="text-piedra text-[11px] block">DEP Peso Final 18m</span>
-                    <span className="font-mono font-bold text-base text-blanco">
+                  <div className="p-3 rounded-lg bg-crema-surface border border-crema-border space-y-1">
+                    <span className="text-tinta-muted text-[11px] block">DEP Peso Final 18m</span>
+                    <span className="font-mono font-bold text-base text-tinta">
                       +{bull.biometrics.peso_final_kg} kg
                     </span>
-                    <span className="text-[10px] text-piedra block">
+                    <span className="text-[10px] text-tinta-muted block">
                       Medición: {bull.biometrics.edad_peso_final_dias} días
                     </span>
                   </div>
 
-                  <div className="p-3 rounded-lg muurket-solid space-y-1">
-                    <span className="text-piedra text-[11px] block">Circunferencia Escrotal</span>
-                    <span className="font-mono font-bold text-base text-blanco">
+                  <div className="p-3 rounded-lg bg-crema-surface border border-crema-border space-y-1">
+                    <span className="text-tinta-muted text-[11px] block">Circunferencia Escrotal</span>
+                    <span className="font-mono font-bold text-base text-tinta">
                       +{bull.biometrics.circunferencia_escrotal_cm} cm
                     </span>
-                    <span className="text-[10px] text-crema block">
+                    <span className="text-[10px] text-salvia font-medium block">
                       Fertilidad comprobada
                     </span>
                   </div>
 
-                  <div className="p-3 rounded-lg muurket-solid space-y-1">
-                    <span className="text-piedra text-[11px] block">Conformación Carnicera</span>
-                    <span className="font-mono font-bold text-base text-blanco">Sobresaliente</span>
-                    <span className="text-[10px] text-piedra block">Evaluación fenotípica</span>
+                  <div className="p-3 rounded-lg bg-crema-surface border border-crema-border space-y-1">
+                    <span className="text-tinta-muted text-[11px] block">Conformación Carnicera</span>
+                    <span className="font-mono font-bold text-base text-tinta">Sobresaliente</span>
+                    <span className="text-[10px] text-tinta-muted block">Evaluación fenotípica</span>
                   </div>
 
-                  <div className="p-3 rounded-lg muurket-solid space-y-1">
-                    <span className="text-piedra text-[11px] block">Adaptación Subtropical</span>
-                    <span className="font-mono font-bold text-base text-esmeralda">100% Inmune</span>
-                    <span className="text-[10px] text-piedra block">Garrapata y calor NEA</span>
+                  <div className="p-3 rounded-lg bg-salvia-light border border-salvia-border space-y-1">
+                    <span className="text-salvia text-[11px] block font-medium">Adaptación Subtropical</span>
+                    <span className="font-mono font-bold text-base text-salvia">100% Inmune</span>
+                    <span className="text-[10px] text-salvia/80 block">Garrapata y calor NEA</span>
                   </div>
                 </div>
               </div>
@@ -238,28 +238,28 @@ export default function BullDetailModal({
             {activeTab === 'carcass' && (
               <div className="space-y-3.5 animate-in fade-in text-xs">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 rounded-lg muurket-solid space-y-1">
-                    <span className="text-piedra text-[11px] block">Área de Ojo de Bife (AOB)</span>
-                    <span className="font-mono font-bold text-2xl text-blanco">
+                  <div className="p-4 rounded-lg bg-crema-surface border border-crema-border space-y-1">
+                    <span className="text-tinta-muted text-[11px] block">Área de Ojo de Bife (AOB)</span>
+                    <span className="font-mono font-bold text-2xl text-tinta">
                       +{bull.biometrics.area_ojo_bife_cm2} cm²
                     </span>
-                    <p className="text-xs text-crema font-medium">
+                    <p className="text-xs text-monte font-semibold">
                       {bull.biometrics.area_ojo_bife_percentile}
                     </p>
-                    <p className="text-[11px] text-piedra pt-1">
+                    <p className="text-[11px] text-tinta-muted pt-1">
                       Medición ecográfica oficial a los 18 meses. Alto rendimiento de cortes valiosos en gancho.
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-lg muurket-solid space-y-1">
-                    <span className="text-piedra text-[11px] block">Grasa Intramuscular (GI)</span>
-                    <span className="font-mono font-bold text-2xl text-cuero">
+                  <div className="p-4 rounded-lg bg-cuero-light border border-cuero-border space-y-1">
+                    <span className="text-cuero text-[11px] block font-medium">Grasa Intramuscular (GI)</span>
+                    <span className="font-mono font-bold text-2xl text-cuero-dark">
                       Top 5%
                     </span>
-                    <p className="text-xs text-cuero font-medium">
+                    <p className="text-xs text-cuero-dark font-bold">
                       Marmóreo Hilton Certificado
                     </p>
-                    <p className="text-[11px] text-piedra pt-1">
+                    <p className="text-[11px] text-cuero/80 pt-1">
                       Infiltración grasa que transmite terneza comprobada a la descendencia en faena.
                     </p>
                   </div>
@@ -270,31 +270,31 @@ export default function BullDetailModal({
             {/* Tab 3: Semen Laboratory */}
             {activeTab === 'semen' && (
               <div className="space-y-3.5 animate-in fade-in text-xs">
-                <div className="p-3 rounded-lg bg-monte-dark/60 border border-verdeSuave/10 flex items-center justify-between">
+                <div className="p-3 rounded-lg bg-crema-surface border border-crema-border flex items-center justify-between">
                   <div>
-                    <span className="text-piedra text-[11px] block">Centro de Inseminación Habilitado</span>
-                    <span className="font-medium text-blanco text-xs">Laboratorio de Biotecnología Seminal Litoral</span>
+                    <span className="text-tinta-muted text-[11px] block">Centro de Inseminación Habilitado</span>
+                    <span className="font-bold text-tinta text-xs">Laboratorio de Biotecnología Seminal Litoral</span>
                   </div>
-                  <span className="px-2 py-0.5 rounded bg-profundo text-crema font-mono text-[10px] border border-verdeSuave/10">
+                  <span className="px-2.5 py-0.5 rounded-md bg-white text-cuero font-mono text-[10px] font-bold border border-crema-border shadow-sm">
                     SENASA #BA-912
                   </span>
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
-                  <div className="p-3 rounded-lg muurket-solid text-center">
-                    <span className="text-piedra text-[11px] block">Motilidad Progresiva</span>
-                    <span className="font-mono font-bold text-lg text-esmeralda">{bull.biometrics.motilidad_seminal_pct}%</span>
-                    <span className="text-[10px] text-piedra block mt-0.5">Norma SENASA: &gt;70%</span>
+                  <div className="p-3 rounded-lg bg-salvia-light border border-salvia-border text-center">
+                    <span className="text-salvia text-[11px] block font-medium">Motilidad Progresiva</span>
+                    <span className="font-mono font-bold text-lg text-salvia">{bull.biometrics.motilidad_seminal_pct}%</span>
+                    <span className="text-[10px] text-salvia/80 block mt-0.5">Norma SENASA: &gt;70%</span>
                   </div>
-                  <div className="p-3 rounded-lg muurket-solid text-center">
-                    <span className="text-piedra text-[11px] block">Volumen por Salto</span>
-                    <span className="font-mono font-bold text-lg text-blanco">{bull.biometrics.volumen_eyaculado_ml} ml</span>
-                    <span className="text-[10px] text-piedra block mt-0.5">Dosis: 0.5 ml</span>
+                  <div className="p-3 rounded-lg bg-crema-surface border border-crema-border text-center">
+                    <span className="text-tinta-muted text-[11px] block">Volumen por Salto</span>
+                    <span className="font-mono font-bold text-lg text-tinta">{bull.biometrics.volumen_eyaculado_ml} ml</span>
+                    <span className="text-[10px] text-tinta-muted block mt-0.5">Dosis: 0.5 ml</span>
                   </div>
-                  <div className="p-3 rounded-lg muurket-solid text-center">
-                    <span className="text-piedra text-[11px] block">Concentración</span>
-                    <span className="font-mono font-bold text-lg text-crema">{bull.biometrics.concentracion_millones_ml} M/ml</span>
-                    <span className="text-[10px] text-piedra block mt-0.5">Viabilidad probada</span>
+                  <div className="p-3 rounded-lg bg-crema-surface border border-crema-border text-center">
+                    <span className="text-tinta-muted text-[11px] block">Concentración</span>
+                    <span className="font-mono font-bold text-lg text-cuero">{bull.biometrics.concentracion_millones_ml} M/ml</span>
+                    <span className="text-[10px] text-tinta-muted block mt-0.5">Viabilidad probada</span>
                   </div>
                 </div>
               </div>
@@ -303,36 +303,36 @@ export default function BullDetailModal({
             {/* Tab 4: Pedigree & Oracle */}
             {activeTab === 'pedigree' && (
               <div className="space-y-3.5 animate-in fade-in text-xs">
-                <div className="p-3.5 rounded-lg muurket-solid space-y-2">
-                  <h4 className="font-heading font-bold text-blanco">Genealogía Registrada</h4>
+                <div className="p-3.5 rounded-lg bg-crema-surface border border-crema-border space-y-2">
+                  <h4 className="font-heading font-bold text-tinta">Genealogía Registrada</h4>
                   <div className="grid grid-cols-2 gap-3 text-[11px]">
                     <div>
-                      <span className="text-piedra">Padre:</span>
-                      <p className="font-medium text-blanco">{bull.pedigree.padre}</p>
+                      <span className="text-tinta-muted">Padre:</span>
+                      <p className="font-bold text-tinta">{bull.pedigree.padre}</p>
                     </div>
                     <div>
-                      <span className="text-piedra">Madre:</span>
-                      <p className="font-medium text-blanco">{bull.pedigree.madre}</p>
+                      <span className="text-tinta-muted">Madre:</span>
+                      <p className="font-bold text-tinta">{bull.pedigree.madre}</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="p-3.5 rounded-lg bg-monte-dark/70 border border-verdeSuave/15 space-y-1.5">
-                  <div className="flex items-center gap-1.5 text-esmeralda font-medium">
+                <div className="p-3.5 rounded-lg bg-salvia-light border border-salvia-border space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-salvia font-bold">
                     <ShieldCheck className="w-4 h-4" />
                     <span>Auditoría de Oráculo Oficial</span>
                   </div>
-                  <p className="text-piedra text-[11px]">
-                    Médico Veterinario Certificador: <strong className="text-blanco">{bull.oracleAudit.inspector}</strong>
+                  <p className="text-tinta-light text-[11px]">
+                    Médico Veterinario Certificador: <strong className="text-tinta">{bull.oracleAudit.inspector}</strong>
                   </p>
-                  <p className="text-piedra text-[11px]">
-                    Fecha de Consenso Hedera: <strong className="text-blanco">{bull.oracleAudit.certificationDate}</strong>
+                  <p className="text-tinta-light text-[11px]">
+                    Fecha de Consenso Hedera: <strong className="text-tinta">{bull.oracleAudit.certificationDate}</strong>
                   </p>
                   <a
                     href={bull.oracleAudit.hashScanUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-esmeralda hover:underline font-mono text-[11px] pt-1"
+                    className="inline-flex items-center gap-1 text-cuero hover:text-cuero-dark font-bold font-mono text-[11px] pt-1"
                   >
                     <span>Consultar registro en HashScan Explorer</span>
                     <ExternalLink className="w-3 h-3" />
@@ -346,31 +346,31 @@ export default function BullDetailModal({
           {/* Right Column: Fast Purchase & Investment Panel (5 Cols) */}
           <div className="lg:col-span-5 space-y-4">
             
-            <div className="muurket-panel p-6 border-verdeSuave/20 shadow-elevated">
+            <div className="bg-white rounded-xl border border-crema-border p-6 shadow-sm">
               
-              <div className="flex items-center justify-between pb-3 border-b border-verdeSuave/10">
+              <div className="flex items-center justify-between pb-3 border-b border-crema-border">
                 <div>
-                  <h3 className="text-sm font-heading font-bold text-blanco">Panel de Compra de Tokens</h3>
-                  <p className="text-[10px] text-piedra">Inversión Directa en Fracciones HTS</p>
+                  <h3 className="text-sm font-heading font-bold text-tinta">Panel de Compra de Tokens</h3>
+                  <p className="text-[10px] text-tinta-muted">Inversión Directa en Fracciones HTS</p>
                 </div>
-                <div className="px-2 py-0.5 rounded bg-monte text-esmeralda font-mono text-xs font-semibold border border-verdeSuave/15">
+                <div className="px-2.5 py-0.5 rounded-md bg-salvia-light text-salvia font-mono text-xs font-bold border border-salvia-border">
                   ~{bull.estimatedAPY}% APY Est.
                 </div>
               </div>
 
               {/* Price Details */}
-              <div className="my-4 p-3.5 rounded-lg muurket-solid flex items-center justify-between">
+              <div className="my-4 p-3.5 rounded-lg bg-crema-surface border border-crema-border flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-piedra block">
+                  <span className="text-[10px] font-mono uppercase text-tinta-muted font-medium block">
                     Precio por Fracción
                   </span>
-                  <span className="text-xl font-heading font-bold text-blanco font-mono">
-                    ${bull.pricePerTokenUSDC.toFixed(2)} <span className="text-xs text-piedra font-sans font-normal">USDC</span>
+                  <span className="text-xl font-heading font-extrabold text-tinta font-mono">
+                    ${bull.pricePerTokenUSDC.toFixed(2)} <span className="text-xs text-tinta-muted font-sans font-normal">USDC</span>
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] text-piedra block">Disponibles</span>
-                  <span className="font-mono text-blanco text-xs font-medium">
+                  <span className="text-[10px] text-tinta-muted font-medium block">Disponibles</span>
+                  <span className="font-mono text-tinta text-xs font-bold">
                     {remainingTokens} / {bull.totalTokens}
                   </span>
                 </div>
@@ -379,10 +379,10 @@ export default function BullDetailModal({
               {/* Quantity Controls */}
               <div className="space-y-3">
                 <div className="flex justify-between items-center text-xs">
-                  <label className="text-crema font-medium">
+                  <label className="text-tinta font-semibold">
                     Cantidad a Comprar
                   </label>
-                  <span className="font-mono font-medium text-blanco">
+                  <span className="font-mono font-bold text-monte">
                     {tokenAmount} Fracciones ({shareOfBullPct}% del Toro)
                   </span>
                 </div>
@@ -393,7 +393,7 @@ export default function BullDetailModal({
                     <button
                       key={num}
                       onClick={() => handleQuickAdd(num)}
-                      className="py-1 rounded bg-monte hover:bg-monte-light text-xs font-mono font-medium text-crema border border-verdeSuave/15 transition-colors"
+                      className="py-1 rounded-md bg-crema-surface hover:bg-salvia-light text-xs font-mono font-bold text-tinta border border-crema-border transition-colors"
                     >
                       +{num}
                     </button>
@@ -408,9 +408,9 @@ export default function BullDetailModal({
                     max={Math.min(300, remainingTokens)}
                     value={tokenAmount}
                     onChange={(e) => setTokenAmount(parseInt(e.target.value) || 1)}
-                    className="w-full accent-esmeralda cursor-pointer"
+                    className="w-full accent-monte cursor-pointer"
                   />
-                  <div className="flex justify-between text-[10px] text-piedra font-mono">
+                  <div className="flex justify-between text-[10px] text-tinta-muted font-mono font-medium">
                     <span>1 token</span>
                     <span>150 tokens</span>
                     <span>300 tokens</span>
@@ -419,26 +419,26 @@ export default function BullDetailModal({
               </div>
 
               {/* Clear Financial Breakdown */}
-              <div className="mt-4 p-3.5 rounded-lg muurket-solid space-y-2 text-xs">
+              <div className="mt-4 p-3.5 rounded-lg bg-crema-surface border border-crema-border space-y-2 text-xs">
                 
-                <div className="flex justify-between text-piedra">
+                <div className="flex justify-between text-tinta-muted">
                   <span>Subtotal Fracciones:</span>
-                  <span className="font-mono text-blanco font-medium">${totalCostUSDC.toLocaleString()} USDC</span>
+                  <span className="font-mono text-tinta font-semibold">${totalCostUSDC.toLocaleString()} USDC</span>
                 </div>
 
-                <div className="flex justify-between text-piedra">
+                <div className="flex justify-between text-tinta-muted">
                   <span>Costo de Red Hedera:</span>
-                  <span className="font-mono text-crema">&lt;$0.001 USD</span>
+                  <span className="font-mono text-tinta font-medium">&lt;$0.001 USD</span>
                 </div>
 
-                <div className="flex justify-between text-piedra">
+                <div className="flex justify-between text-tinta-muted">
                   <span>Comisión de Plataforma:</span>
-                  <span className="font-mono text-crema">0.00 USDC (Ronda Primaria)</span>
+                  <span className="font-mono text-salvia font-bold">0.00 USDC (Ronda Primaria)</span>
                 </div>
 
-                <div className="pt-2 border-t border-verdeSuave/10 flex justify-between items-center">
-                  <span className="font-heading font-bold text-blanco text-sm">Total a Pagar:</span>
-                  <span className="text-lg font-heading font-bold text-blanco font-mono">
+                <div className="pt-2 border-t border-crema-border flex justify-between items-center">
+                  <span className="font-heading font-extrabold text-tinta text-sm">Total a Pagar:</span>
+                  <span className="text-lg font-heading font-extrabold text-monte font-mono">
                     ${totalCostUSDC.toLocaleString()} USDC
                   </span>
                 </div>
@@ -446,20 +446,20 @@ export default function BullDetailModal({
               </div>
 
               {/* Yield Projection Disclaimer */}
-              <div className="mt-3 p-2.5 rounded bg-monte-dark/60 border border-verdeSuave/10 text-[11px] text-piedra space-y-1">
-                <div className="flex justify-between text-crema">
+              <div className="mt-3 p-2.5 rounded-lg bg-arena-light border border-arena-border text-[11px] text-tinta-light space-y-1">
+                <div className="flex justify-between text-tinta font-semibold">
                   <span>Proyección Anual Estimada:</span>
-                  <span className="font-mono font-medium text-esmeralda">+${estimatedAnnualYieldUSDC.toLocaleString()} USDC/año</span>
+                  <span className="font-mono font-bold text-salvia">+${estimatedAnnualYieldUSDC.toLocaleString()} USDC/año</span>
                 </div>
-                <p className="text-[10px] text-piedra leading-tight">
+                <p className="text-[10px] text-tinta-muted leading-tight">
                   * Estimación basada en volumen histórico de colocación de pajuelas y tasa de remate. Los rendimientos no están garantizados y dependen de las ventas físicas efectivas.
                 </p>
               </div>
 
               {/* Balance */}
-              <div className="mt-3 text-[11px] text-piedra flex justify-between">
+              <div className="mt-3 text-[11px] text-tinta-muted flex justify-between">
                 <span>Saldo disponible en HashPack:</span>
-                <span className="font-mono text-blanco font-medium">
+                <span className="font-mono text-tinta font-bold">
                   ${investorBalance.toLocaleString()} USDC
                 </span>
               </div>
@@ -469,11 +469,11 @@ export default function BullDetailModal({
                 <button
                   onClick={handleInvest}
                   disabled={isInvesting || tokenAmount <= 0}
-                  className="w-full py-3 px-4 rounded-lg btn-action-primary text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm"
+                  className="w-full py-3 px-4 rounded-lg btn-action-primary text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm font-bold"
                 >
                   {isInvesting ? (
                     <>
-                      <RefreshCw className="w-4 h-4 animate-spin text-profundo-dark" />
+                      <RefreshCw className="w-4 h-4 animate-spin text-white" />
                       <span>Firmando en HashPack...</span>
                     </>
                   ) : (
@@ -492,33 +492,33 @@ export default function BullDetailModal({
 
       {/* Confirmation Modal */}
       {investSuccess && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-profundo-dark/90 backdrop-blur-md animate-in fade-in">
-          <div className="w-full max-w-md muurket-panel p-6 border-verdeSuave/25 shadow-elevated text-center space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-tinta/60 backdrop-blur-md animate-in fade-in">
+          <div className="w-full max-w-md bg-white rounded-2xl p-6 border border-crema-border shadow-elevated text-center space-y-4">
             
-            <div className="w-12 h-12 mx-auto rounded-full bg-monte text-esmeralda flex items-center justify-center text-xl">
+            <div className="w-12 h-12 mx-auto rounded-full bg-salvia-light text-salvia flex items-center justify-center text-xl font-bold">
               ✓
             </div>
 
             <div>
-              <span className="px-2.5 py-0.5 rounded bg-monte text-esmeralda font-mono text-xs border border-verdeSuave/15">
+              <span className="px-2.5 py-0.5 rounded-full bg-salvia-light text-salvia font-mono text-xs font-bold border border-salvia-border">
                 Transacción Confirmada
               </span>
-              <h3 className="text-lg font-heading font-extrabold text-blanco mt-2">
+              <h3 className="text-lg font-heading font-extrabold text-tinta mt-2">
                 Inversión realizada en {investSuccess.bullName}
               </h3>
-              <p className="text-xs text-piedra mt-0.5">
+              <p className="text-xs text-tinta-muted mt-0.5">
                 Se han transferido {investSuccess.tokensPurchased} tokens ({investSuccess.bullName}) a tu billetera.
               </p>
             </div>
 
-            <div className="p-3.5 rounded-lg muurket-solid text-left space-y-2 text-xs">
+            <div className="p-3.5 rounded-lg bg-crema-surface border border-crema-border text-left space-y-2 text-xs">
               <div className="flex justify-between">
-                <span className="text-piedra">Monto Invertido:</span>
-                <span className="font-mono font-bold text-blanco">${investSuccess.totalCost.toFixed(2)} USDC</span>
+                <span className="text-tinta-muted">Monto Invertido:</span>
+                <span className="font-mono font-bold text-tinta">${investSuccess.totalCost.toFixed(2)} USDC</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-piedra">Transacción Hedera:</span>
-                <span className="font-mono text-crema text-[11px] truncate max-w-[200px]">
+                <span className="text-tinta-muted">Transacción Hedera:</span>
+                <span className="font-mono text-cuero text-[11px] font-semibold truncate max-w-[200px]">
                   {investSuccess.txHash}
                 </span>
               </div>
@@ -529,7 +529,7 @@ export default function BullDetailModal({
                 href={investSuccess.hashScanUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex-1 py-2 px-3 rounded-lg bg-monte hover:bg-monte-light border border-verdeSuave/15 text-piedra hover:text-blanco text-xs font-medium flex items-center justify-center gap-1.5"
+                className="flex-1 py-2 px-3 rounded-lg bg-crema-surface hover:bg-crema-border border border-crema-border text-tinta text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
               >
                 <span>Ver en HashScan</span>
                 <ExternalLink className="w-3.5 h-3.5" />

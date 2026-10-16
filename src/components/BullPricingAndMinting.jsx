@@ -215,40 +215,40 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
     <div className="space-y-6">
       
       {/* Editorial Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-verdeSuave/10">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-crema-border">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="px-2 py-0.5 rounded bg-monte-dark text-piedra-light font-mono text-[10px] uppercase border border-verdeSuave/10">
+            <span className="px-2.5 py-0.5 rounded-full bg-salvia-light text-salvia font-mono text-[10px] uppercase font-bold border border-salvia-border">
               Protocolo de Valuación Ganadera
             </span>
-            <span className="text-piedra text-xs">· Estándar PEGBraf / Hedera HTS</span>
+            <span className="text-tinta-muted text-xs">· Estándar PEGBraf / Hedera HTS</span>
           </div>
-          <h1 className="text-2xl font-heading font-extrabold text-blanco">
+          <h1 className="text-2xl font-heading font-extrabold text-tinta">
             Publicación y Tasación de Reproductor
           </h1>
-          <p className="text-sm text-piedra mt-0.5">
+          <p className="text-sm text-tinta-muted mt-0.5">
             Ingreso de métricas biológicas y ecográficas validadas para el cálculo de valor de mercado y emisión de tokens.
           </p>
         </div>
 
         {/* Presets de Prueba */}
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs text-piedra">Cargar caso:</span>
+          <span className="text-xs text-tinta-muted font-medium">Cargar caso:</span>
           <button
             onClick={() => loadPreset('record')}
-            className="px-2.5 py-1.5 rounded bg-monte-dark hover:bg-monte border border-verdeSuave/15 text-xs text-crema font-medium transition-colors"
+            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-crema-surface border border-crema-border text-xs text-tinta font-bold shadow-sm transition-all"
           >
             Don Luis (Palermo 2.45x)
           </button>
           <button
             onClick={() => loadPreset('brangus')}
-            className="px-2.5 py-1.5 rounded bg-monte-dark hover:bg-monte border border-verdeSuave/15 text-xs text-piedra hover:text-blanco transition-colors"
+            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-crema-surface border border-crema-border text-xs text-tinta-muted hover:text-tinta font-medium shadow-sm transition-all"
           >
             Pucará 459 (Brangus)
           </button>
           <button
             onClick={() => loadPreset('base')}
-            className="px-2.5 py-1.5 rounded bg-monte-dark hover:bg-monte border border-verdeSuave/15 text-xs text-piedra hover:text-blanco transition-colors"
+            className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-crema-surface border border-crema-border text-xs text-tinta-muted hover:text-tinta font-medium shadow-sm transition-all"
           >
             Toro Estándar Base
           </button>
@@ -264,32 +264,32 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
             <button
               key={s.num}
               onClick={() => setCurrentStep(s.num)}
-              className={`p-3.5 rounded-xl text-left transition-colors border ${
+              className={`p-3.5 rounded-xl text-left transition-all border ${
                 isActive
-                  ? 'bg-monte text-blanco border-verdeSuave/30 shadow-sm'
+                  ? 'bg-monte text-white border-monte shadow-sm'
                   : isDone
-                    ? 'bg-monte-dark/70 border-verdeSuave/10 text-crema'
-                    : 'bg-monte-dark/30 border-verdeSuave/5 text-piedra'
+                    ? 'bg-salvia-light border-salvia-border text-salvia'
+                    : 'bg-white border-crema-border text-tinta-muted hover:bg-crema-surface shadow-sm'
               }`}
             >
               <div className="flex items-center justify-between mb-1.5">
-                <span className={`w-5 h-5 rounded text-xs font-mono font-semibold flex items-center justify-center ${
+                <span className={`w-5 h-5 rounded-md text-xs font-mono font-bold flex items-center justify-center ${
                   isActive
-                    ? 'bg-esmeralda text-profundo-dark'
+                    ? 'bg-white text-monte'
                     : isDone
-                      ? 'bg-monte text-esmeralda'
-                      : 'bg-profundo-dark text-piedra'
+                      ? 'bg-salvia text-white'
+                      : 'bg-crema-surface text-tinta-muted'
                 }`}>
                   {isDone ? <Check className="w-3.5 h-3.5" /> : s.num}
                 </span>
-                <span className="text-[10px] font-mono text-piedra uppercase">
+                <span className={`text-[10px] font-mono uppercase font-semibold ${isActive ? 'text-white/80' : 'text-tinta-subtle'}`}>
                   Paso {s.num}/4
                 </span>
               </div>
-              <p className={`text-xs font-heading font-bold ${isActive ? 'text-blanco' : 'text-crema/90'}`}>
+              <p className={`text-xs font-heading font-bold ${isActive ? 'text-white' : isDone ? 'text-salvia' : 'text-tinta'}`}>
                 {s.label}
               </p>
-              <p className="text-[11px] text-piedra truncate">
+              <p className={`text-[11px] truncate ${isActive ? 'text-white/80' : 'text-tinta-muted'}`}>
                 {s.desc}
               </p>
             </button>
@@ -301,40 +301,40 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* Form Container (7 Cols) */}
-        <div className="lg:col-span-7 space-y-5 muurket-card p-6">
+        <div className="lg:col-span-7 space-y-5 muurket-card bg-white border border-crema-border p-6 shadow-sm">
           
           {/* STEP 1: Identificación y Registro */}
           {currentStep === 1 && (
             <div className="space-y-4 animate-in fade-in">
-              <div className="flex items-center justify-between pb-2 border-b border-verdeSuave/10">
-                <h3 className="text-sm font-heading font-bold text-blanco">
+              <div className="flex items-center justify-between pb-2 border-b border-crema-border">
+                <h3 className="text-sm font-heading font-extrabold text-tinta">
                   1. Registro Genealógico y Cabaña
                 </h3>
-                <span className="text-xs text-piedra">Datos Sociedad Rural Argentina</span>
+                <span className="text-xs text-tinta-muted font-medium">Datos Sociedad Rural Argentina</span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Nombre del Reproductor
                   </label>
                   <input
                     type="text"
                     value={formData.nombre}
                     onChange={(e) => handleChange('nombre', e.target.value)}
-                    className="w-full muurket-input"
+                    className="w-full muurket-input bg-crema-canvas border-crema-border text-tinta font-medium"
                     placeholder="Ej. Don Luis — Gran Campeón"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Raza
                   </label>
                   <select
                     value={formData.raza}
                     onChange={(e) => handleChange('raza', e.target.value)}
-                    className="w-full muurket-input"
+                    className="w-full muurket-input bg-crema-canvas border-crema-border text-tinta font-medium"
                   >
                     <option value="Braford">Braford (Hereford x Cebú)</option>
                     <option value="Brangus">Brangus (Angus x Cebú)</option>
@@ -342,53 +342,53 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Registro Genealógico (HBA)
                   </label>
                   <input
                     type="text"
                     value={formData.hba}
                     onChange={(e) => handleChange('hba', e.target.value)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                     placeholder="HBA 184.920"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Caravana Oficial SENASA
                   </label>
                   <input
                     type="text"
                     value={formData.caravana}
                     onChange={(e) => handleChange('caravana', e.target.value)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                     placeholder="ARG-COR-401"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Padre (Genealogía)
                   </label>
                   <input
                     type="text"
                     value={formData.padre}
                     onChange={(e) => handleChange('padre', e.target.value)}
-                    className="w-full muurket-input"
+                    className="w-full muurket-input bg-crema-canvas border-crema-border text-tinta"
                     placeholder="Experto TE 142"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Madre (Donante)
                   </label>
                   <input
                     type="text"
                     value={formData.madre}
                     onChange={(e) => handleChange('madre', e.target.value)}
-                    className="w-full muurket-input"
+                    className="w-full muurket-input bg-crema-canvas border-crema-border text-tinta"
                     placeholder="Guaraní Payé 410"
                   />
                 </div>
@@ -396,7 +396,7 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
 
               {/* Selector de Fotografía Documental */}
               <div className="pt-2">
-                <label className="block text-xs font-medium text-crema mb-2">
+                <label className="block text-xs font-semibold text-tinta mb-2">
                   Fotografía Documental del Animal
                 </label>
                 <div className="grid grid-cols-3 gap-3">
@@ -408,12 +408,12 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
                     <div
                       key={img.path}
                       onClick={() => handleChange('foto', img.path)}
-                      className={`cursor-pointer rounded-lg overflow-hidden border transition-all ${
-                        formData.foto === img.path ? 'border-esmeralda ring-1 ring-esmeralda' : 'border-verdeSuave/15 opacity-70 hover:opacity-100'
+                      className={`cursor-pointer rounded-xl overflow-hidden border transition-all shadow-sm ${
+                        formData.foto === img.path ? 'border-monte ring-2 ring-monte' : 'border-crema-border opacity-75 hover:opacity-100 hover:border-cuero/50'
                       }`}
                     >
                       <img src={img.path} alt={img.label} className="w-full h-20 object-cover" />
-                      <div className="p-1.5 bg-monte-dark text-[11px] text-center text-crema truncate">
+                      <div className="p-1.5 bg-crema-surface text-[11px] text-center text-tinta font-bold truncate border-t border-crema-border">
                         {img.label}
                       </div>
                     </div>
@@ -426,15 +426,15 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
           {/* STEP 2: Datos Biométricos DEP */}
           {currentStep === 2 && (
             <div className="space-y-4 animate-in fade-in">
-              <div className="flex items-center justify-between pb-2 border-b border-verdeSuave/10">
-                <h3 className="text-sm font-heading font-bold text-blanco">
+              <div className="flex items-center justify-between pb-2 border-b border-crema-border">
+                <h3 className="text-sm font-heading font-extrabold text-tinta">
                   2. Diferencias Esperadas en la Progenie (DEP)
                 </h3>
-                <span className="text-[11px] text-piedra font-mono">Escala de 1 kg exacto</span>
+                <span className="text-[11px] text-tinta-muted font-mono font-medium">Escala de 1 kg exacto</span>
               </div>
 
-              <div className="p-3 rounded-lg bg-monte-dark/70 border border-verdeSuave/10 text-xs text-piedra flex items-start gap-2">
-                <Info className="w-4 h-4 text-esmeralda flex-shrink-0 mt-0.5" />
+              <div className="p-3 rounded-lg bg-salvia-light border border-salvia-border text-xs text-tinta-light flex items-start gap-2">
+                <Info className="w-4 h-4 text-salvia flex-shrink-0 mt-0.5" />
                 <span>
                   Los DEPs evalúan el impacto genético transmitido a la descendencia. Una DEP de PN ≤ 0.0 kg añade una bonificación de <strong>+0.50x</strong> por facilidad de parto.
                 </span>
@@ -443,44 +443,44 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-crema">
+                    <label className="text-xs font-semibold text-tinta">
                       DEP Peso al Nacer (kg)
                     </label>
-                    <span className="text-[10px] font-mono text-esmeralda">Bono si ≤ 0.0</span>
+                    <span className="text-[10px] font-mono text-salvia font-bold">Bono si ≤ 0.0</span>
                   </div>
                   <input
                     type="number"
                     step="0.1"
                     value={formData.peso_nacer_kg}
                     onChange={(e) => handleChange('peso_nacer_kg', parseFloat(e.target.value) || 0)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                   />
-                  <p className="text-[11px] text-piedra mt-1">
+                  <p className="text-[11px] text-tinta-muted mt-1">
                     {formData.peso_nacer_kg <= 0 ? '✓ Cumple criterio Top 1% (+0.50x)' : 'Sin bonificación'}
                   </p>
                 </div>
 
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-crema">
+                    <label className="text-xs font-semibold text-tinta">
                       Circunferencia Escrotal (cm)
                     </label>
-                    <span className="text-[10px] font-mono text-piedra">Mínimo +1.5 cm</span>
+                    <span className="text-[10px] font-mono text-tinta-muted">Mínimo +1.5 cm</span>
                   </div>
                   <input
                     type="number"
                     step="0.1"
                     value={formData.circunferencia_escrotal_cm}
                     onChange={(e) => handleChange('circunferencia_escrotal_cm', parseFloat(e.target.value) || 0)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                   />
-                  <p className="text-[11px] text-piedra mt-1">
+                  <p className="text-[11px] text-tinta-muted mt-1">
                     {formData.circunferencia_escrotal_cm >= 1.5 ? '✓ Aprobado para reproducción' : 'Rechazado: menor a +1.5 cm'}
                   </p>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     DEP Peso al Destete (kg)
                   </label>
                   <input
@@ -488,26 +488,26 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
                     step="1"
                     value={formData.peso_destete_kg}
                     onChange={(e) => handleChange('peso_destete_kg', parseFloat(e.target.value) || 0)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                   />
-                  <span className="text-[10px] text-piedra">Umbral bonificación: &gt; +15 kg</span>
+                  <span className="text-[10px] text-tinta-muted">Umbral bonificación: &gt; +15 kg</span>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Edad al Destete (días)
                   </label>
                   <input
                     type="number"
                     value={formData.edad_destete_dias}
                     onChange={(e) => handleChange('edad_destete_dias', parseInt(e.target.value) || 0)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                   />
-                  <span className="text-[10px] text-piedra">Rango normativo: 100 - 300 días</span>
+                  <span className="text-[10px] text-tinta-muted">Rango normativo: 100 - 300 días</span>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     DEP Peso Final 18 Meses (kg)
                   </label>
                   <input
@@ -515,22 +515,22 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
                     step="1"
                     value={formData.peso_final_kg}
                     onChange={(e) => handleChange('peso_final_kg', parseFloat(e.target.value) || 0)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                   />
-                  <span className="text-[10px] text-piedra">Umbral bonificación: &gt; +30 kg</span>
+                  <span className="text-[10px] text-tinta-muted">Umbral bonificación: &gt; +30 kg</span>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Edad a Medición Final (días)
                   </label>
                   <input
                     type="number"
                     value={formData.edad_peso_final_dias}
                     onChange={(e) => handleChange('edad_peso_final_dias', parseInt(e.target.value) || 0)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                   />
-                  <span className="text-[10px] text-piedra">Rango normativo: 450 - 730 días</span>
+                  <span className="text-[10px] text-tinta-muted">Rango normativo: 450 - 730 días</span>
                 </div>
               </div>
             </div>
@@ -539,20 +539,20 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
           {/* STEP 3: Datos Ecográficos */}
           {currentStep === 3 && (
             <div className="space-y-4 animate-in fade-in">
-              <div className="flex items-center justify-between pb-2 border-b border-verdeSuave/10">
-                <h3 className="text-sm font-heading font-bold text-blanco">
+              <div className="flex items-center justify-between pb-2 border-b border-crema-border">
+                <h3 className="text-sm font-heading font-extrabold text-tinta">
                   3. Ecografía de Carcasa a 18 Meses
                 </h3>
-                <span className="text-xs text-piedra">Medición por médico veterinario habilitado</span>
+                <span className="text-xs text-tinta-muted">Medición por médico veterinario habilitado</span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-crema">
+                    <label className="text-xs font-semibold text-tinta">
                       Área de Ojo de Bife — AOB (cm²)
                     </label>
-                    <span className="text-[10px] font-mono text-esmeralda">
+                    <span className="text-[10px] font-mono text-salvia font-bold">
                       {formData.area_ojo_bife_cm2 >= 3.0 ? '+0.50x (Top 1-5%)' : formData.area_ojo_bife_cm2 >= 2.0 ? '+0.20x (Top 20%)' : '0.00x'}
                     </span>
                   </div>
@@ -561,15 +561,15 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
                     step="0.1"
                     value={formData.area_ojo_bife_cm2}
                     onChange={(e) => handleChange('area_ojo_bife_cm2', parseFloat(e.target.value) || 0)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                   />
-                  <p className="text-[11px] text-piedra mt-1">
+                  <p className="text-[11px] text-tinta-muted mt-1">
                     Rendimiento carnicero en cortes de exportación Hilton.
                   </p>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Espesor de Grasa Dorsal (mm)
                   </label>
                   <input
@@ -577,19 +577,19 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
                     step="0.1"
                     value={formData.espesor_grasa_dorsal_mm}
                     onChange={(e) => handleChange('espesor_grasa_dorsal_mm', parseFloat(e.target.value) || 0)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                   />
-                  <span className="text-[10px] text-piedra">Terminación y engrasamiento a pasto</span>
+                  <span className="text-[10px] text-tinta-muted">Terminación y engrasamiento a pasto</span>
                 </div>
               </div>
 
               {/* Marmóreo / Grasa Intramuscular */}
-              <div className="p-3.5 rounded-lg bg-monte-dark/80 border border-verdeSuave/15 flex items-center justify-between">
+              <div className="p-3.5 rounded-xl bg-crema-surface border border-crema-border flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-bold text-blanco">
+                  <p className="text-xs font-bold text-tinta">
                     Grasa Intramuscular (GI) — Pertenencia al Top 5%
                   </p>
-                  <p className="text-[11px] text-piedra mt-0.5">
+                  <p className="text-[11px] text-tinta-muted mt-0.5">
                     Certifica marbling superior para mercados de carne de alta calidad (+0.30x).
                   </p>
                 </div>
@@ -601,7 +601,7 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
                     onChange={(e) => handleChange('grasa_intramuscular_pct_top5', e.target.checked)}
                     className="sr-only peer"
                   />
-                  <div className="w-10 h-5 bg-profundo rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-blanco after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-esmeralda"></div>
+                  <div className="w-10 h-5 bg-crema-border rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-monte"></div>
                 </label>
               </div>
             </div>
@@ -610,34 +610,34 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
           {/* STEP 4: Laboratorio Seminal */}
           {currentStep === 4 && (
             <div className="space-y-4 animate-in fade-in">
-              <div className="flex items-center justify-between pb-2 border-b border-verdeSuave/10">
-                <h3 className="text-sm font-heading font-bold text-blanco">
+              <div className="flex items-center justify-between pb-2 border-b border-crema-border">
+                <h3 className="text-sm font-heading font-extrabold text-tinta">
                   4. Laboratorio Seminal y Tokenización HTS
                 </h3>
-                <span className="text-xs text-piedra">Suministro Finito Hedera</span>
+                <span className="text-xs text-tinta-muted font-medium">Suministro Finito Hedera</span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-medium text-crema">
+                    <label className="text-xs font-semibold text-tinta">
                       Motilidad Seminal Progresiva (%)
                     </label>
-                    <span className="text-[10px] font-mono text-piedra">Exigencia: ≥ 70%</span>
+                    <span className="text-[10px] font-mono text-tinta-muted">Exigencia: ≥ 70%</span>
                   </div>
                   <input
                     type="number"
                     value={formData.motilidad_seminal_pct}
                     onChange={(e) => handleChange('motilidad_seminal_pct', parseInt(e.target.value) || 0)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                   />
-                  <p className="text-[11px] text-piedra mt-1">
+                  <p className="text-[11px] text-tinta-muted mt-1">
                     {formData.motilidad_seminal_pct >= 70 ? '✓ Calidad apta para congelado' : 'Rechazado: menor a 70%'}
                   </p>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Volumen de Eyaculado (ml)
                   </label>
                   <input
@@ -645,51 +645,51 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
                     step="0.1"
                     value={formData.volumen_eyaculado_ml}
                     onChange={(e) => handleChange('volumen_eyaculado_ml', parseFloat(e.target.value) || 0)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                   />
-                  <span className="text-[10px] text-piedra">0.5 ml estándar por pajuela</span>
+                  <span className="text-[10px] text-tinta-muted">0.5 ml estándar por pajuela</span>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Pajuelas Producidas en Salto
                   </label>
                   <input
                     type="number"
                     value={formData.pajuelas_producidas}
                     onChange={(e) => handleChange('pajuelas_producidas', parseInt(e.target.value) || 0)}
-                    className="w-full muurket-input font-mono"
+                    className="w-full muurket-input font-mono bg-crema-canvas border-crema-border text-tinta"
                   />
-                  <span className="text-[10px] text-piedra">Dosis físicas generadas en el lote</span>
+                  <span className="text-[10px] text-tinta-muted">Dosis físicas generadas en el lote</span>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-crema mb-1">
+                  <label className="block text-xs font-semibold text-tinta mb-1">
                     Símbolo del Token HTS
                   </label>
                   <input
                     type="text"
                     value={formData.simbolo_token}
                     onChange={(e) => handleChange('simbolo_token', e.target.value.toUpperCase())}
-                    className="w-full muurket-input font-mono font-bold text-esmeralda"
+                    className="w-full muurket-input font-mono font-bold text-monte bg-crema-canvas border-crema-border"
                     placeholder="PAJ-BRAF"
                   />
-                  <span className="text-[10px] text-piedra">Token fungible común no fraccionable (0 decimales)</span>
+                  <span className="text-[10px] text-tinta-muted">Token fungible común no fraccionable (0 decimales)</span>
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg bg-monte-dark/60 border border-verdeSuave/10 text-xs text-piedra">
+              <div className="p-3 rounded-lg bg-salvia-light border border-salvia-border text-xs text-tinta-light">
                 Cada token emitido confiere derechos económicos sobre la venta física de dosis seminales registradas bajo trazabilidad Hedera Consensus.
               </div>
             </div>
           )}
 
           {/* Stepper Navigation Buttons */}
-          <div className="flex items-center justify-between pt-4 border-t border-verdeSuave/10">
+          <div className="flex items-center justify-between pt-4 border-t border-crema-border">
             {currentStep > 1 ? (
               <button
                 onClick={() => setCurrentStep(prev => prev - 1)}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-monte-dark hover:bg-monte text-crema text-xs font-medium transition-colors border border-verdeSuave/15"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-crema-surface hover:bg-crema-border text-tinta text-xs font-semibold transition-colors border border-crema-border"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Paso Anterior</span>
@@ -699,7 +699,7 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
             {currentStep < 4 ? (
               <button
                 onClick={() => setCurrentStep(prev => prev + 1)}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-monte hover:bg-monte-light text-blanco text-xs font-heading font-semibold transition-colors border border-verdeSuave/20"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg btn-action-primary text-white text-xs font-heading font-semibold transition-all shadow-sm"
               >
                 <span>Siguiente Paso</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -708,15 +708,15 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
               <button
                 onClick={handleMintOnHedera}
                 disabled={!valuation.isValid || isMinting}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-heading font-bold transition-colors ${
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-heading font-bold transition-all shadow-sm ${
                   valuation.isValid && !isMinting
                     ? 'btn-action-primary'
-                    : 'bg-monte-dark text-piedra border border-verdeSuave/10 cursor-not-allowed'
+                    : 'bg-crema-surface text-tinta-muted border border-crema-border cursor-not-allowed'
                 }`}
               >
                 {isMinting ? (
                   <>
-                    <RefreshCw className="w-4 h-4 animate-spin text-profundo-dark" />
+                    <RefreshCw className="w-4 h-4 animate-spin text-white" />
                     <span>Emitiendo en Hedera...</span>
                   </>
                 ) : (
@@ -730,21 +730,21 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
 
         {/* Smart Valuation Calculator (Right 5 Cols) */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="muurket-panel p-6 border-verdeSuave/20 shadow-elevated">
+          <div className="bg-white rounded-xl border border-crema-border p-6 shadow-sm">
             
             {/* Header with Title & Status */}
-            <div className="flex items-center justify-between pb-3 border-b border-verdeSuave/10">
+            <div className="flex items-center justify-between pb-3 border-b border-crema-border">
               <div>
-                <h3 className="text-xs font-mono uppercase tracking-wider text-piedra">
+                <h3 className="text-xs font-mono uppercase tracking-wider text-tinta-muted font-medium">
                   Panel de Tasación Algorítmica
                 </h3>
-                <p className="text-xs text-crema font-heading font-semibold">Motor PEGBraf Ganadero</p>
+                <p className="text-xs text-tinta font-heading font-bold">Motor PEGBraf Ganadero</p>
               </div>
 
-              <span className={`px-2 py-0.5 rounded text-[10px] font-mono flex items-center gap-1 border ${
+              <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono flex items-center gap-1 border font-bold ${
                 valuation.isValid
-                  ? 'bg-monte text-esmeralda border-esmeralda/30'
-                  : 'bg-rose-950/60 text-rose-300 border-rose-500/30'
+                  ? 'bg-salvia-light text-salvia border-salvia-border'
+                  : 'bg-rose-50 text-rose-700 border-rose-200'
               }`}>
                 {valuation.isValid ? (
                   <>
@@ -761,47 +761,47 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
             </div>
 
             {/* Main Valuation Display */}
-            <div className="my-5 p-4 rounded-xl muurket-solid text-center">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-piedra">
+            <div className="my-5 p-5 rounded-xl bg-gradient-to-br from-monte to-monte-dark text-white text-center shadow-sm">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-white/80 font-medium">
                 Valor de Mercado Estimado del Toro
               </span>
-              <div className="mt-1 text-3xl xl:text-4xl font-heading font-extrabold text-blanco tracking-tight">
-                ${valuation.bullValuationUSD.toLocaleString()} <span className="text-base font-normal text-piedra">USD</span>
+              <div className="mt-1 text-3xl xl:text-4xl font-heading font-extrabold text-white tracking-tight font-mono">
+                ${valuation.bullValuationUSD.toLocaleString()} <span className="text-base font-normal text-white/80">USD</span>
               </div>
-              <div className="mt-2 flex items-center justify-center gap-4 text-xs text-piedra pt-2 border-t border-verdeSuave/10">
+              <div className="mt-2 flex items-center justify-center gap-4 text-xs text-white/90 pt-2 border-t border-white/20">
                 <span>
-                  Valor por Dosis: <strong className="text-blanco font-mono">${valuation.doseValuationUSD.toFixed(2)} USDC</strong>
+                  Valor por Dosis: <strong className="text-white font-mono">${valuation.doseValuationUSD.toFixed(2)} USDC</strong>
                 </span>
-                <span className="text-verdeSuave/20">|</span>
+                <span className="text-white/30">|</span>
                 <span>
-                  Factor: <strong className="text-crema font-mono">{valuation.multiplier}x</strong>
+                  Factor: <strong className="text-white font-mono">{valuation.multiplier}x</strong>
                 </span>
               </div>
             </div>
 
             {/* Multiplier Factor Breakdown */}
             <div className="space-y-1.5">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-piedra mb-1">
+              <p className="text-[10px] font-mono uppercase tracking-wider text-tinta-muted font-bold mb-1">
                 Factores de Bonificación Evaluados
               </p>
               {valuation.breakdown.map((item, idx) => (
                 <div
                   key={idx}
-                  className={`p-2.5 rounded-lg flex items-center justify-between text-xs border ${
+                  className={`p-2.5 rounded-lg flex items-center justify-between text-xs border transition-colors ${
                     item.applied
-                      ? 'bg-monte-dark/90 border-verdeSuave/15 text-crema'
-                      : 'bg-monte-dark/30 border-verdeSuave/5 text-piedra-dark'
+                      ? 'bg-crema-surface border-crema-border hover:border-salvia-border text-tinta'
+                      : 'bg-crema-canvas/50 border-crema-border/50 text-tinta-subtle'
                   }`}
                 >
                   <div className="min-w-0 pr-2">
-                    <p className={`font-semibold text-xs ${item.applied ? 'text-blanco' : 'text-piedra'}`}>
+                    <p className={`font-bold text-xs ${item.applied ? 'text-tinta' : 'text-tinta-muted'}`}>
                       {item.name}
                     </p>
-                    <p className="text-[10px] text-piedra truncate">
+                    <p className="text-[10px] text-tinta-muted truncate">
                       {item.description}
                     </p>
                   </div>
-                  <span className={`font-mono text-xs font-semibold whitespace-nowrap ${item.applied ? 'text-esmeralda' : 'text-piedra-dark'}`}>
+                  <span className={`font-mono text-xs font-bold whitespace-nowrap ${item.applied ? 'text-salvia' : 'text-tinta-subtle'}`}>
                     {item.factor}
                   </span>
                 </div>
@@ -810,12 +810,12 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
 
             {/* Validation errors */}
             {!valuation.isValid && (
-              <div className="mt-4 p-3 rounded-lg bg-rose-950/40 border border-rose-500/30 text-rose-200 text-xs space-y-1">
-                <p className="font-bold flex items-center gap-1.5 text-rose-300">
+              <div className="mt-4 p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs space-y-1">
+                <p className="font-bold flex items-center gap-1.5 text-rose-800">
                   <AlertCircle className="w-3.5 h-3.5" />
                   <span>Criterios no alcanzados:</span>
                 </p>
-                <ul className="list-disc list-inside text-[11px] text-rose-200/90 space-y-0.5">
+                <ul className="list-disc list-inside text-[11px] text-rose-700 space-y-0.5">
                   {valuation.errors.map((err, i) => (
                     <li key={i}>{err}</li>
                   ))}
@@ -824,22 +824,22 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
             )}
 
             {/* Tokenization Summary */}
-            <div className="mt-5 pt-3.5 border-t border-verdeSuave/10 space-y-2 text-xs">
-              <div className="flex justify-between text-piedra">
+            <div className="mt-5 pt-3.5 border-t border-crema-border space-y-2 text-xs">
+              <div className="flex justify-between text-tinta-muted">
                 <span>Fracciones a emitir:</span>
-                <span className="font-mono text-blanco font-medium">
+                <span className="font-mono text-tinta font-bold">
                   {formData.total_tokens_lote.toLocaleString()} {formData.simbolo_token}
                 </span>
               </div>
-              <div className="flex justify-between text-piedra">
+              <div className="flex justify-between text-tinta-muted">
                 <span>Recaudación objetivo:</span>
-                <span className="font-mono text-blanco font-bold">
+                <span className="font-mono text-tinta font-bold">
                   ${(formData.total_tokens_lote * valuation.doseValuationUSD).toLocaleString()} USDC
                 </span>
               </div>
-              <div className="flex justify-between text-piedra">
+              <div className="flex justify-between text-tinta-muted">
                 <span>Blockchain:</span>
-                <span className="font-mono text-crema text-[11px]">Hedera Token Service (HTS)</span>
+                <span className="font-mono text-cuero font-semibold text-[11px]">Hedera Token Service (HTS)</span>
               </div>
             </div>
 
@@ -848,15 +848,15 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
               <button
                 onClick={handleMintOnHedera}
                 disabled={!valuation.isValid || isMinting}
-                className={`w-full py-3 px-4 rounded-lg font-heading font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors ${
+                className={`w-full py-3 px-4 rounded-lg font-heading font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-sm ${
                   valuation.isValid && !isMinting
                     ? 'btn-action-primary'
-                    : 'bg-monte-dark text-piedra border border-verdeSuave/10 cursor-not-allowed'
+                    : 'bg-crema-surface text-tinta-muted border border-crema-border cursor-not-allowed'
                 }`}
               >
                 {isMinting ? (
                   <>
-                    <RefreshCw className="w-4 h-4 animate-spin text-profundo-dark" />
+                    <RefreshCw className="w-4 h-4 animate-spin text-white" />
                     <span>Conectando con Hedera Consensus...</span>
                   </>
                 ) : (
@@ -872,37 +872,37 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
 
       {/* Minting Confirmation Modal */}
       {mintSuccess && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-profundo-dark/85 backdrop-blur-md animate-in fade-in">
-          <div className="w-full max-w-md muurket-panel p-6 border-verdeSuave/25 shadow-elevated space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-tinta/60 backdrop-blur-md animate-in fade-in">
+          <div className="w-full max-w-md bg-white rounded-2xl p-6 border border-crema-border shadow-elevated space-y-4">
             
             <div className="text-center space-y-1">
-              <span className="px-2.5 py-0.5 rounded bg-monte text-esmeralda font-mono text-[10px] uppercase border border-verdeSuave/20">
+              <span className="px-2.5 py-0.5 rounded-full bg-salvia-light text-salvia font-mono text-[10px] uppercase font-bold border border-salvia-border">
                 Transacción Confirmada en Hedera
               </span>
-              <h2 className="text-lg font-heading font-extrabold text-blanco mt-2">
+              <h2 className="text-lg font-heading font-extrabold text-tinta mt-2">
                 {mintSuccess.name}
               </h2>
-              <p className="text-xs text-piedra">
+              <p className="text-xs text-tinta-muted">
                 Token fungible finito creado exitosamente bajo el estándar HTS.
               </p>
             </div>
 
-            <div className="p-3.5 rounded-lg muurket-solid space-y-2 text-xs">
+            <div className="p-3.5 rounded-lg bg-crema-surface border border-crema-border space-y-2 text-xs">
               <div className="flex justify-between">
-                <span className="text-piedra">Token ID Hedera:</span>
-                <span className="font-mono text-esmeralda font-bold">{mintSuccess.htsTokenId}</span>
+                <span className="text-tinta-muted">Token ID Hedera:</span>
+                <span className="font-mono text-salvia font-bold">{mintSuccess.htsTokenId}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-piedra">Símbolo:</span>
-                <span className="font-mono text-blanco font-semibold">{mintSuccess.symbol}</span>
+                <span className="text-tinta-muted">Símbolo:</span>
+                <span className="font-mono text-tinta font-bold">{mintSuccess.symbol}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-piedra">Tasación Oficial:</span>
-                <span className="font-mono text-blanco font-bold">${mintSuccess.valuationUSD.toLocaleString()} USD</span>
+                <span className="text-tinta-muted">Tasación Oficial:</span>
+                <span className="font-mono text-tinta font-bold">${mintSuccess.valuationUSD.toLocaleString()} USD</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-piedra">Precio por Fracción:</span>
-                <span className="font-mono text-blanco font-bold">${mintSuccess.pricePerTokenUSDC.toFixed(2)} USDC</span>
+                <span className="text-tinta-muted">Precio por Fracción:</span>
+                <span className="font-mono text-cuero font-bold">${mintSuccess.pricePerTokenUSDC.toFixed(2)} USDC</span>
               </div>
             </div>
 
@@ -911,10 +911,10 @@ export default function BullPricingAndMinting({ onBullMinted, setActiveView }) {
                 href={mintSuccess.oracleAudit.hashScanUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex-1 py-2 px-3 rounded-lg bg-monte hover:bg-monte-light border border-verdeSuave/15 text-center text-blanco text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
+                className="flex-1 py-2 px-3 rounded-lg bg-crema-surface hover:bg-crema-border border border-crema-border text-center text-tinta text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
               >
                 <span>Ver en HashScan</span>
-                <ExternalLink className="w-3.5 h-3.5 text-piedra" />
+                <ExternalLink className="w-3.5 h-3.5" />
               </a>
 
               <button

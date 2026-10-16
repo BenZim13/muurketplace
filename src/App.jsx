@@ -124,7 +124,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-profundo text-blanco flex flex-col antialiased selection:bg-esmeralda/25 selection:text-esmeralda relative">
+    <div className="min-h-screen bg-[#F8F5EE] text-[#18231E] flex flex-col antialiased selection:bg-cuero-subtle selection:text-cuero-dark relative">
       
       {/* Top Navigation */}
       <Navbar
@@ -228,15 +228,15 @@ export default function App() {
         />
       )}
 
-      {/* Authentic Argentine Estancia Rural Backdrop with Dark Monte Treatment */}
+      {/* Authentic Argentine Estancia Rural Backdrop with Warm Cream Treatment */}
       <div 
-        className="fixed inset-0 pointer-events-none -z-20 bg-cover bg-center bg-no-repeat"
+        className="fixed inset-0 pointer-events-none -z-20 bg-cover bg-center bg-no-repeat opacity-40"
         style={{ backgroundImage: `url('/assets/estancia_landscape.jpg')` }}
       />
       <div 
         className="fixed inset-0 pointer-events-none -z-10"
         style={{
-          background: 'linear-gradient(180deg, rgba(16, 44, 36, 0.94) 0%, rgba(10, 29, 23, 0.96) 50%, rgba(10, 29, 23, 0.98) 100%)'
+          background: 'linear-gradient(180deg, rgba(248, 245, 238, 0.92) 0%, rgba(245, 241, 232, 0.96) 50%, rgba(248, 245, 238, 0.98) 100%)'
         }}
       />
     </div>
