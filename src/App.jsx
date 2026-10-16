@@ -194,6 +194,7 @@ export default function App() {
                 <Marketplace
                   bulls={bulls}
                   onSelectBull={(bull) => setSelectedBull(bull)}
+                  userRole={currentRole}
                 />
               )}
 
@@ -218,13 +219,15 @@ export default function App() {
 
       </div>
 
-      {/* Quick Interactive Modal: Bull Details & Fast Investment Panel */}
+      {/* Quick Interactive Modal: Bull Details & Investment / Management Panel */}
       {selectedBull && (
         <BullDetailModal
           bull={selectedBull}
           onClose={() => setSelectedBull(null)}
           onInvestSuccess={handleInvestSuccess}
           investorBalance={investorData.walletBalanceUSDC}
+          userRole={currentRole}
+          setActiveView={setActiveView}
         />
       )}
 

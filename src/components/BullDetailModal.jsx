@@ -5,7 +5,8 @@ import {
   ExternalLink, 
   CheckCircle2, 
   RefreshCw,
-  Info
+  Info,
+  Landmark
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -13,7 +14,9 @@ export default function BullDetailModal({
   bull, 
   onClose, 
   onInvestSuccess,
-  investorBalance 
+  investorBalance = 0,
+  userRole = 'buyer',
+  setActiveView
 }) {
   const [tokenAmount, setTokenAmount] = useState(10);
   const [activeTab, setActiveTab] = useState('biometrics');
@@ -343,146 +346,260 @@ export default function BullDetailModal({
 
           </div>
 
-          {/* Right Column: Fast Purchase & Investment Panel (5 Cols) */}
+          {/* Right Column: Dynamic according to userRole */}
           <div className="lg:col-span-5 space-y-4">
             
-            <div className="bg-white rounded-xl border border-crema-border p-6 shadow-sm">
-              
-              <div className="flex items-center justify-between pb-3 border-b border-crema-border">
-                <div>
-                  <h3 className="text-sm font-heading font-bold text-tinta">Panel de Compra de Tokens</h3>
-                  <p className="text-[10px] text-tinta-muted">Inversión Directa en Fracciones HTS</p>
-                </div>
-                <div className="px-2.5 py-0.5 rounded-md bg-salvia-light text-salvia font-mono text-xs font-bold border border-salvia-border">
-                  ~{bull.estimatedAPY}% APY Est.
-                </div>
-              </div>
-
-              {/* Price Details */}
-              <div className="my-4 p-3.5 rounded-lg bg-crema-surface border border-crema-border flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono uppercase text-tinta-muted font-medium block">
-                    Precio por Fracción
-                  </span>
-                  <span className="text-xl font-heading font-extrabold text-tinta font-mono">
-                    ${bull.pricePerTokenUSDC.toFixed(2)} <span className="text-xs text-tinta-muted font-sans font-normal">USDC</span>
-                  </span>
-                </div>
-                <div className="text-right">
-                  <span className="text-[10px] text-tinta-muted font-medium block">Disponibles</span>
-                  <span className="font-mono text-tinta text-xs font-bold">
-                    {remainingTokens} / {bull.totalTokens}
-                  </span>
-                </div>
-              </div>
-
-              {/* Quantity Controls */}
-              <div className="space-y-3">
-                <div className="flex justify-between items-center text-xs">
-                  <label className="text-tinta font-semibold">
-                    Cantidad a Comprar
-                  </label>
-                  <span className="font-mono font-bold text-monte">
-                    {tokenAmount} Fracciones ({shareOfBullPct}% del Toro)
-                  </span>
-                </div>
-
-                {/* Preset Chips */}
-                <div className="grid grid-cols-5 gap-1.5">
-                  {[1, 5, 10, 50, 100].map((num) => (
-                    <button
-                      key={num}
-                      onClick={() => handleQuickAdd(num)}
-                      className="py-1 rounded-md bg-crema-surface hover:bg-salvia-light text-xs font-mono font-bold text-tinta border border-crema-border transition-colors"
-                    >
-                      +{num}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Slider */}
-                <div className="pt-1">
-                  <input
-                    type="range"
-                    min="1"
-                    max={Math.min(300, remainingTokens)}
-                    value={tokenAmount}
-                    onChange={(e) => setTokenAmount(parseInt(e.target.value) || 1)}
-                    className="w-full accent-monte cursor-pointer"
-                  />
-                  <div className="flex justify-between text-[10px] text-tinta-muted font-mono font-medium">
-                    <span>1 token</span>
-                    <span>150 tokens</span>
-                    <span>300 tokens</span>
+            {userRole === 'seller' ? (
+              /* SELLER / CABAÑA VIEW: Management & Round Supervision */
+              <div className="bg-white rounded-xl border border-crema-border p-6 shadow-sm space-y-5">
+                <div className="flex items-center justify-between pb-3 border-b border-crema-border">
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-tinta-muted block">
+                      Panel de Cabaña Titular
+                    </span>
+                    <h3 className="text-sm font-heading font-bold text-tinta">
+                      Supervisión de Ronda & Activo
+                    </h3>
+                  </div>
+                  <div className="px-2.5 py-0.5 rounded-md bg-salvia-light text-salvia font-mono text-xs font-bold border border-salvia-border">
+                    Emisión HTS Activa
                   </div>
                 </div>
+
+                {/* Round Progress Card */}
+                <div className="p-4 rounded-xl bg-crema-surface border border-crema-border space-y-3">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-tinta-muted font-medium">Recaudación de Ronda:</span>
+                    <span className="font-mono font-bold text-monte text-sm">
+                      ${(bull.tokensSold * bull.pricePerTokenUSDC).toLocaleString()} USDC
+                    </span>
+                  </div>
+                  
+                  {/* Progress bar */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-[11px] text-tinta-muted font-medium">
+                      <span>Avance de colocación</span>
+                      <span className="font-mono font-bold text-tinta">
+                        {Math.min(100, Math.round((bull.tokensSold / bull.totalTokens) * 100))}%
+                      </span>
+                    </div>
+                    <div className="w-full h-2 rounded-full bg-white border border-crema-border/70 overflow-hidden">
+                      <div 
+                        className="h-full bg-monte rounded-full transition-all duration-500"
+                        style={{ width: `${Math.min(100, Math.round((bull.tokensSold / bull.totalTokens) * 100))}%` }}
+                      />
+                    </div>
+                    <div className="flex justify-between text-[10px] text-tinta-muted font-mono pt-0.5">
+                      <span>Meta: ${bull.valuationUSD.toLocaleString()} USD</span>
+                      <span className="text-esmeralda font-semibold">
+                        {bull.tokensSold.toLocaleString()} de {bull.totalTokens.toLocaleString()} fracciones
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stock & Criocentro Details */}
+                <div className="space-y-2 text-xs">
+                  <div className="flex justify-between py-2 border-b border-crema-border text-tinta-muted">
+                    <span>Fracciones en Criocentro:</span>
+                    <span className="font-mono font-bold text-tinta">
+                      {remainingTokens.toLocaleString()} dosis
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-crema-border text-tinta-muted">
+                    <span>Precio Oficial por Dosis:</span>
+                    <span className="font-mono font-bold text-tinta">
+                      ${bull.pricePerTokenUSDC.toFixed(2)} USDC
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-crema-border text-tinta-muted">
+                    <span>Rendimiento Proyectado Anual:</span>
+                    <span className="font-mono font-bold text-salvia">
+                      ~{bull.estimatedAPY}% APY
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-2 text-tinta-muted">
+                    <span>Identificador HTS:</span>
+                    <span className="font-mono font-bold text-monte text-[11px]">
+                      {bull.htsTokenId}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Role Notice */}
+                <div className="p-3 rounded-lg bg-arena-light border border-arena-border text-[11px] text-tinta-light flex items-start gap-2">
+                  <Info className="w-4 h-4 text-cuero flex-shrink-0 mt-0.5" />
+                  <p className="leading-snug">
+                    <strong>Modo Cabaña:</strong> Como propietario del reproductor, supervisas aquí la suscripción del lote. El panel de compra está inhabilitado para tu cuenta de vendedor.
+                  </p>
+                </div>
+
+                {/* Actions */}
+                <div className="space-y-2 pt-1">
+                  {setActiveView && (
+                    <button
+                      onClick={() => {
+                        onClose();
+                        setActiveView('seller-wallet');
+                      }}
+                      className="w-full py-2.5 px-4 rounded-lg btn-action-leather text-xs font-heading font-bold flex items-center justify-center gap-2 shadow-sm"
+                    >
+                      <Landmark className="w-4 h-4" />
+                      <span>Ver Tesorería y Fondos Recaudados</span>
+                    </button>
+                  )}
+
+                  <a
+                    href={bull.oracleAudit.hashScanUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full py-2 px-4 rounded-lg bg-crema-surface hover:bg-crema-border border border-crema-border text-xs font-heading font-semibold text-tinta flex items-center justify-center gap-1.5 transition-colors"
+                  >
+                    <span>Auditoría en HashScan Explorer</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-tinta-muted" />
+                  </a>
+                </div>
               </div>
-
-              {/* Clear Financial Breakdown */}
-              <div className="mt-4 p-3.5 rounded-lg bg-crema-surface border border-crema-border space-y-2 text-xs">
+            ) : (
+              /* INVESTOR / CLIENT VIEW: Token Purchase & Investment */
+              <div className="bg-white rounded-xl border border-crema-border p-6 shadow-sm">
                 
-                <div className="flex justify-between text-tinta-muted">
-                  <span>Subtotal Fracciones:</span>
-                  <span className="font-mono text-tinta font-semibold">${totalCostUSDC.toLocaleString()} USDC</span>
+                <div className="flex items-center justify-between pb-3 border-b border-crema-border">
+                  <div>
+                    <h3 className="text-sm font-heading font-bold text-tinta">Panel de Compra de Tokens</h3>
+                    <p className="text-[10px] text-tinta-muted">Inversión Directa en Fracciones HTS</p>
+                  </div>
+                  <div className="px-2.5 py-0.5 rounded-md bg-salvia-light text-salvia font-mono text-xs font-bold border border-salvia-border">
+                    ~{bull.estimatedAPY}% APY Est.
+                  </div>
                 </div>
 
-                <div className="flex justify-between text-tinta-muted">
-                  <span>Costo de Red Hedera:</span>
-                  <span className="font-mono text-tinta font-medium">&lt;$0.001 USD</span>
+                {/* Price Details */}
+                <div className="my-4 p-3.5 rounded-lg bg-crema-surface border border-crema-border flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-mono uppercase text-tinta-muted font-medium block">
+                      Precio por Fracción
+                    </span>
+                    <span className="text-xl font-heading font-extrabold text-tinta font-mono">
+                      ${bull.pricePerTokenUSDC.toFixed(2)} <span className="text-xs text-tinta-muted font-sans font-normal">USDC</span>
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[10px] text-tinta-muted font-medium block">Disponibles</span>
+                    <span className="font-mono text-tinta text-xs font-bold">
+                      {remainingTokens} / {bull.totalTokens}
+                    </span>
+                  </div>
                 </div>
 
-                <div className="flex justify-between text-tinta-muted">
-                  <span>Comisión de Plataforma:</span>
-                  <span className="font-mono text-salvia font-bold">0.00 USDC (Ronda Primaria)</span>
+                {/* Quantity Controls */}
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center text-xs">
+                    <label className="text-tinta font-semibold">
+                      Cantidad a Comprar
+                    </label>
+                    <span className="font-mono font-bold text-monte">
+                      {tokenAmount} Fracciones ({shareOfBullPct}% del Toro)
+                    </span>
+                  </div>
+
+                  {/* Preset Chips */}
+                  <div className="grid grid-cols-5 gap-1.5">
+                    {[1, 5, 10, 50, 100].map((num) => (
+                      <button
+                        key={num}
+                        onClick={() => handleQuickAdd(num)}
+                        className="py-1 rounded-md bg-crema-surface hover:bg-salvia-light text-xs font-mono font-bold text-tinta border border-crema-border transition-colors"
+                      >
+                        +{num}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Slider */}
+                  <div className="pt-1">
+                    <input
+                      type="range"
+                      min="1"
+                      max={Math.min(300, remainingTokens)}
+                      value={tokenAmount}
+                      onChange={(e) => setTokenAmount(parseInt(e.target.value) || 1)}
+                      className="w-full accent-monte cursor-pointer"
+                    />
+                    <div className="flex justify-between text-[10px] text-tinta-muted font-mono font-medium">
+                      <span>1 token</span>
+                      <span>150 tokens</span>
+                      <span>300 tokens</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="pt-2 border-t border-crema-border flex justify-between items-center">
-                  <span className="font-heading font-extrabold text-tinta text-sm">Total a Pagar:</span>
-                  <span className="text-lg font-heading font-extrabold text-monte font-mono">
-                    ${totalCostUSDC.toLocaleString()} USDC
+                {/* Clear Financial Breakdown */}
+                <div className="mt-4 p-3.5 rounded-lg bg-crema-surface border border-crema-border space-y-2 text-xs">
+                  
+                  <div className="flex justify-between text-tinta-muted">
+                    <span>Subtotal Fracciones:</span>
+                    <span className="font-mono text-tinta font-semibold">${totalCostUSDC.toLocaleString()} USDC</span>
+                  </div>
+
+                  <div className="flex justify-between text-tinta-muted">
+                    <span>Costo de Red Hedera:</span>
+                    <span className="font-mono text-tinta font-medium">&lt;$0.001 USD</span>
+                  </div>
+
+                  <div className="flex justify-between text-tinta-muted">
+                    <span>Comisión de Plataforma:</span>
+                    <span className="font-mono text-salvia font-bold">0.00 USDC (Ronda Primaria)</span>
+                  </div>
+
+                  <div className="pt-2 border-t border-crema-border flex justify-between items-center">
+                    <span className="font-heading font-extrabold text-tinta text-sm">Total a Pagar:</span>
+                    <span className="text-lg font-heading font-extrabold text-monte font-mono">
+                      ${totalCostUSDC.toLocaleString()} USDC
+                    </span>
+                  </div>
+
+                </div>
+
+                {/* Yield Projection Disclaimer */}
+                <div className="mt-3 p-2.5 rounded-lg bg-arena-light border border-arena-border text-[11px] text-tinta-light space-y-1">
+                  <div className="flex justify-between text-tinta font-semibold">
+                    <span>Proyección Anual Estimada:</span>
+                    <span className="font-mono font-bold text-salvia">+${estimatedAnnualYieldUSDC.toLocaleString()} USDC/año</span>
+                  </div>
+                  <p className="text-[10px] text-tinta-muted leading-tight">
+                    * Estimación basada en volumen histórico de colocación de pajuelas y tasa de remate. Los rendimientos no están garantizados y dependen de las ventas físicas efectivas.
+                  </p>
+                </div>
+
+                {/* Balance */}
+                <div className="mt-3 text-[11px] text-tinta-muted flex justify-between">
+                  <span>Saldo disponible en HashPack:</span>
+                  <span className="font-mono text-tinta font-bold">
+                    ${investorBalance.toLocaleString()} USDC
                   </span>
                 </div>
 
-              </div>
-
-              {/* Yield Projection Disclaimer */}
-              <div className="mt-3 p-2.5 rounded-lg bg-arena-light border border-arena-border text-[11px] text-tinta-light space-y-1">
-                <div className="flex justify-between text-tinta font-semibold">
-                  <span>Proyección Anual Estimada:</span>
-                  <span className="font-mono font-bold text-salvia">+${estimatedAnnualYieldUSDC.toLocaleString()} USDC/año</span>
+                {/* Main Action Button */}
+                <div className="mt-4">
+                  <button
+                    onClick={handleInvest}
+                    disabled={isInvesting || tokenAmount <= 0}
+                    className="w-full py-3 px-4 rounded-lg btn-action-primary text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm font-bold"
+                  >
+                    {isInvesting ? (
+                      <>
+                        <RefreshCw className="w-4 h-4 animate-spin text-white" />
+                        <span>Firmando en HashPack...</span>
+                      </>
+                    ) : (
+                      <span>Invertir con HashPack Wallet</span>
+                    )}
+                  </button>
                 </div>
-                <p className="text-[10px] text-tinta-muted leading-tight">
-                  * Estimación basada en volumen histórico de colocación de pajuelas y tasa de remate. Los rendimientos no están garantizados y dependen de las ventas físicas efectivas.
-                </p>
-              </div>
 
-              {/* Balance */}
-              <div className="mt-3 text-[11px] text-tinta-muted flex justify-between">
-                <span>Saldo disponible en HashPack:</span>
-                <span className="font-mono text-tinta font-bold">
-                  ${investorBalance.toLocaleString()} USDC
-                </span>
               </div>
-
-              {/* Main Action Button */}
-              <div className="mt-4">
-                <button
-                  onClick={handleInvest}
-                  disabled={isInvesting || tokenAmount <= 0}
-                  className="w-full py-3 px-4 rounded-lg btn-action-primary text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm font-bold"
-                >
-                  {isInvesting ? (
-                    <>
-                      <RefreshCw className="w-4 h-4 animate-spin text-white" />
-                      <span>Firmando en HashPack...</span>
-                    </>
-                  ) : (
-                    <span>Invertir con HashPack Wallet</span>
-                  )}
-                </button>
-              </div>
-
-            </div>
+            )}
 
           </div>
 

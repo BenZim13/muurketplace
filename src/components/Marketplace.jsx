@@ -9,7 +9,8 @@ import {
 
 export default function Marketplace({ 
   bulls, 
-  onSelectBull 
+  onSelectBull,
+  userRole = 'buyer'
 }) {
   const [selectedBreed, setSelectedBreed] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -246,7 +247,7 @@ export default function Marketplace({
                   onClick={() => onSelectBull(bull)}
                   className="w-full py-2.5 px-3 rounded-lg btn-action-primary font-heading font-semibold text-xs tracking-wide flex items-center justify-center gap-1.5 shadow-sm transition-all"
                 >
-                  <span>Ver Ficha Biológica e Invertir</span>
+                  <span>{userRole === 'seller' ? 'Ver Ficha Biológica y Auditoría' : 'Ver Ficha Biológica e Invertir'}</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               </div>
