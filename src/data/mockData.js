@@ -13,8 +13,8 @@ export const MOCK_BULLS = [
     tokensSold: 2460,
     fundedPercent: 82,
     estimatedAPY: 28.5,
-    htsTokenId: '0.0.781923',
-    symbol: 'PAJ-DLUIS',
+    htsTokenId: '0.0.11043216',
+    symbol: 'PAJ-BRAF',
     hbaRegister: 'HBA 184.920',
     tagCode: 'ARG-COR-401',
     verifiedAssociation: 'Asociación Braford Argentina',
@@ -45,10 +45,10 @@ export const MOCK_BULLS = [
       abueloMaterno: 'Chañar X99',
     },
     oracleAudit: {
-      hashScanUrl: 'https://hashscan.io/testnet/token/0.0.781923',
+      hashScanUrl: 'https://hashscan.io/testnet/token/0.0.11043216',
       inspector: 'Dr. Roberto Maidana (Méd. Vet. Col. 1408)',
       certificationDate: '12 Feb 2026',
-      consensusTx: '0.0.482910@1739371200.000000000',
+      consensusTx: '0.0.10989663@1739371200.000000000',
     }
   },
   {
@@ -162,7 +162,7 @@ export const MOCK_SELLER_DATA = {
   location: 'Mercedes, Corrientes (NEA - Argentina)',
   established: 1984,
   director: 'Ing. Agr. Juan Bautista Solari',
-  hederaAccountId: '0.0.482910',
+  hederaAccountId: '0.0.10989663',
   walletBalanceUSDC: 42850.00,
   walletBalanceHBAR: 12400,
   totalFundingRaisedUSDC: 189000,
@@ -196,10 +196,10 @@ export const MOCK_SELLER_DATA = {
     }
   ],
   recentSales: [
-    { id: 'tx-1', buyer: '0.0.651928 (I. Zabaleta)', bull: 'Don Luis', tokens: 50, amountUSDC: 1225.00, time: 'Hace 12 min', txHash: '0.0.482910@1739371250' },
-    { id: 'tx-2', buyer: '0.0.710291 (Fondo AgTech Litoral)', bull: 'Don Luis', tokens: 200, amountUSDC: 4900.00, time: 'Hace 2 horas', txHash: '0.0.482910@1739364000' },
-    { id: 'tx-3', buyer: '0.0.594012 (Cabaña San Marcos)', bull: 'Pucará 459', tokens: 100, amountUSDC: 2150.00, time: 'Hace 5 horas', txHash: '0.0.482910@1739353200' },
-    { id: 'tx-4', buyer: '0.0.884102 (Estancia El Chañar)', bull: 'Colorado Correntino', tokens: 75, amountUSDC: 1275.00, time: 'Ayer', txHash: '0.0.482910@1739280000' },
+    { id: 'tx-1', buyer: '0.0.651928 (I. Zabaleta)', bull: 'Don Luis', tokens: 50, amountUSDC: 1225.00, time: 'Hace 12 min', txHash: '0.0.10989663@1739371250' },
+    { id: 'tx-2', buyer: '0.0.710291 (Fondo AgTech Litoral)', bull: 'Don Luis', tokens: 200, amountUSDC: 4900.00, time: 'Hace 2 horas', txHash: '0.0.10989663@1739364000' },
+    { id: 'tx-3', buyer: '0.0.594012 (Cabaña San Marcos)', bull: 'Pucará 459', tokens: 100, amountUSDC: 2150.00, time: 'Hace 5 horas', txHash: '0.0.10989663@1739353200' },
+    { id: 'tx-4', buyer: '0.0.884102 (Estancia El Chañar)', bull: 'Colorado Correntino', tokens: 75, amountUSDC: 1275.00, time: 'Ayer', txHash: '0.0.10989663@1739280000' },
   ],
   monthlyPerformance: [
     { month: 'Oct 2025', pajuelas: 310, usdc: 7595 },
@@ -238,8 +238,8 @@ export const MOCK_INVESTOR_DATA = {
       yieldClaimableUSDC: 284.40,
       totalYieldDistributedUSDC: 568.80,
       estimatedAPY: 28.5,
-      htsTokenId: '0.0.781923',
-      symbol: 'PAJ-DLUIS',
+      htsTokenId: '0.0.11043216',
+      symbol: 'PAJ-BRAF',
       strawsSoldInHoldings: 180,
     },
     {

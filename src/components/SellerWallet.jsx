@@ -20,11 +20,11 @@ export default function SellerWallet({ sellerData }) {
   const [withdrawSuccess, setWithdrawSuccess] = useState(false);
 
   const [transactions, setTransactions] = useState([
-    { id: 'tx-1', type: 'in', desc: 'Venta de 50 Fracciones — Don Luis (HTS 0.0.781923)', amount: '+1,225.00 USDC', date: 'Hoy, 14:22', txHash: '0.0.482910@1739371250', status: 'Confirmado' },
-    { id: 'tx-2', type: 'in', desc: 'Venta de 200 Fracciones — Don Luis (HTS 0.0.781923)', amount: '+4,900.00 USDC', date: 'Hoy, 11:40', txHash: '0.0.482910@1739364000', status: 'Confirmado' },
-    { id: 'tx-3', type: 'in', desc: 'Liquidación Remate Primavera Pajuelas Físicas', amount: '+12,450.00 USDC', date: 'Ayer', txHash: '0.0.482910@1739280000', status: 'Confirmado' },
-    { id: 'tx-4', type: 'out', desc: 'Transferencia CBU Banco Galicia (Liquidación ARS)', amount: '-10,000.00 USDC', date: '10 Feb 2026', txHash: '0.0.482910@1739193600', status: 'Acreditado' },
-    { id: 'tx-5', type: 'in', desc: 'Venta 75 Fracciones — Colorado Correntino', amount: '+1,275.00 USDC', date: '08 Feb 2026', txHash: '0.0.482910@1739020800', status: 'Confirmado' },
+    { id: 'tx-1', type: 'in', desc: 'Venta de 50 Fracciones — Don Luis (HTS 0.0.11043216)', amount: '+1,225.00 USDC', date: 'Hoy, 14:22', txHash: '0.0.10989663@1739371250', status: 'Confirmado' },
+    { id: 'tx-2', type: 'in', desc: 'Venta de 200 Fracciones — Don Luis (HTS 0.0.11043216)', amount: '+4,900.00 USDC', date: 'Hoy, 11:40', txHash: '0.0.10989663@1739364000', status: 'Confirmado' },
+    { id: 'tx-3', type: 'in', desc: 'Liquidación Remate Primavera Pajuelas Físicas', amount: '+12,450.00 USDC', date: 'Ayer', txHash: '0.0.10989663@1739280000', status: 'Confirmado' },
+    { id: 'tx-4', type: 'out', desc: 'Transferencia CBU Banco Galicia (Liquidación ARS)', amount: '-10,000.00 USDC', date: '10 Feb 2026', txHash: '0.0.10989663@1739193600', status: 'Acreditado' },
+    { id: 'tx-5', type: 'in', desc: 'Venta 75 Fracciones — Colorado Correntino', amount: '+1,275.00 USDC', date: '08 Feb 2026', txHash: '0.0.10989663@1739020800', status: 'Confirmado' },
   ]);
 
   const copyAddress = () => {
@@ -46,7 +46,7 @@ export default function SellerWallet({ sellerData }) {
           desc: `Liquidación Bancaria CBU (${bankAlias})`,
           amount: `-${parseFloat(withdrawAmount).toLocaleString()}.00 USDC`,
           date: 'Justo ahora',
-          txHash: `0.0.482910@${Math.floor(Date.now() / 1000)}`,
+          txHash: `0.0.10989663@${Math.floor(Date.now() / 1000)}`,
           status: 'En acreditación'
         },
         ...prev
@@ -180,7 +180,7 @@ export default function SellerWallet({ sellerData }) {
             </p>
           </div>
           <span className="text-xs font-mono text-tinta-muted px-2 py-1 rounded bg-crema-surface border border-crema-border">
-            Auditoría HTS 0.0.482910
+            Auditoría HTS 0.0.10989663
           </span>
         </div>
 
