@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #102C24;
+    color: #FFFEFA;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Manrope', 'Inter', sans-serif;
+    letter-spacing: -0.015em;
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a1d17;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #173F32;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1f5242;
+  }
+}
+
+/* Smoked Glassmorphism & Editorial Surfaces */
+.muurket-card {
+  background: rgba(19, 48, 39, 0.76);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(220, 231, 216, 0.12);
+  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.45);
+  border-radius: 12px;
+}
+
+.muurket-card-hover {
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.muurket-card-hover:hover {
+  border-color: rgba(220, 231, 216, 0.24);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.6);
+}
+
+.muurket-panel {
+  background: rgba(16, 44, 36, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(220, 231, 216, 0.14);
+  border-radius: 14px;
+}
+
+.muurket-solid {
+  background: #133229;
+  border: 1px solid rgba(220, 231, 216, 0.14);
+  border-radius: 10px;
+}
+
+/* Refined input and select fields */
+.muurket-input {
+  background: #0d231c;
+  border: 1px solid rgba(220, 231, 216, 0.16);
+  color: #FFFEFA;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  padding: 0.625rem 0.875rem;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.muurket-input:focus {
+  border-color: #00D9A0;
+  outline: none;
+  background-color: #0e271f;
+}
+
+.muurket-input::placeholder {
+  color: #7c847c;
+}
+
+/* Action button: Emerald primary */
+.btn-action-primary {
+  background-color: #00D9A0;
+  color: #0a1d17;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.btn-action-primary:hover {
+  background-color: #00c28e;
+  transform: translateY(-1px);
+}
+
+.btn-action-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary button: Cuero / Leather accent */
+.btn-action-leather {
+  background-color: #C77B43;
+  color: #FFFEFA;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.btn-action-leather:hover {
+  background-color: #b56d38;
+}
+
+/* Subtle pulse dot */
+.status-dot-active {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #00D9A0;
+  display: inline-block;
+}

@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +23,17 @@
   "homepage": "https://github.com/BenZim13/muurketplace#readme",
   "dependencies": {
     "@hashgraph/sdk": "^2.81.0",
-    "dotenv": "^18.0.8"
+    "canvas-confetti": "^1.9.4",
+    "dotenv": "^18.0.8",
+    "lucide-react": "^1.57.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.30",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.3.4"
   }
 }
