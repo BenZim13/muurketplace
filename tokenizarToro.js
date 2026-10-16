@@ -11,7 +11,7 @@ async function main() {
 
     console.log("Creando el Token de Pajuelas (PAJ-BRAF)...");
 
-    // 2. Definir las características del Token
+    // 2. Dfinir las características del Token
     const transaction = new TokenCreateTransaction()
         .setTokenName("Genetica Braford - Toro Lider") // Nombre del activo
         .setTokenSymbol("PAJ-BRAF") // Símbolo en la bolsa
