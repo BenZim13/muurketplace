@@ -65,7 +65,7 @@ export const MOCK_BULLS = [
     tokensSold: 2850,
     fundedPercent: 95,
     estimatedAPY: 32.4,
-    htsTokenId: '0.0.819402',
+    htsTokenId: '0.0.11054878',
     symbol: 'PAJ-PUCARA',
     hbaRegister: 'HBA 192.031',
     tagCode: 'CHA-PIL-459',
@@ -97,10 +97,10 @@ export const MOCK_BULLS = [
       abueloMaterno: 'Curandero TE',
     },
     oracleAudit: {
-      hashScanUrl: 'https://hashscan.io/testnet/token/0.0.819402',
+      hashScanUrl: 'https://hashscan.io/testnet/token/0.0.11054878',
       inspector: 'Dra. Claudia Benítez (SENASA NEA)',
       certificationDate: '28 Ene 2026',
-      consensusTx: '0.0.482910@1738075200.000000000',
+      consensusTx: '0.0.10989663@1792195399.263404416',
     }
   },
   {
@@ -117,7 +117,7 @@ export const MOCK_BULLS = [
     tokensSold: 1350,
     fundedPercent: 45,
     estimatedAPY: 24.8,
-    htsTokenId: '0.0.912384',
+    htsTokenId: '0.0.11054879',
     symbol: 'PAJ-FEDER',
     hbaRegister: 'HBA 178.942',
     tagCode: 'COR-BEL-102',
@@ -149,10 +149,10 @@ export const MOCK_BULLS = [
       abueloMaterno: 'San Alejo 41',
     },
     oracleAudit: {
-      hashScanUrl: 'https://hashscan.io/testnet/token/0.0.912384',
+      hashScanUrl: 'https://hashscan.io/testnet/token/0.0.11054879',
       inspector: 'Dr. Hernán Gómez (Méd. Vet. Col. 1821)',
       certificationDate: '04 Mar 2026',
-      consensusTx: '0.0.482910@1741099200.000000000',
+      consensusTx: '0.0.10989663@1792195399.994254938',
     }
   }
 ];
@@ -255,7 +255,7 @@ export const MOCK_INVESTOR_DATA = {
       yieldClaimableUSDC: 151.80,
       totalYieldDistributedUSDC: 303.60,
       estimatedAPY: 32.4,
-      htsTokenId: '0.0.819402',
+      htsTokenId: '0.0.11054878',
       symbol: 'PAJ-PUCARA',
       strawsSoldInHoldings: 145,
     },
@@ -272,15 +272,15 @@ export const MOCK_INVESTOR_DATA = {
       yieldClaimableUSDC: 50.00,
       totalYieldDistributedUSDC: 68.10,
       estimatedAPY: 24.8,
-      htsTokenId: '0.0.912384',
+      htsTokenId: '0.0.11054879',
       symbol: 'PAJ-FEDER',
       strawsSoldInHoldings: 40,
     }
   ],
   transactions: [
-    { id: 'tx-claim-1', type: 'claim', title: 'Reclamo de Dividendos Trimestrales (USDC)', amount: '+240.00 USDC', date: '01 Mar 2026', txHash: '0.0.651928@1740844800', status: 'Completado' },
-    { id: 'tx-buy-1', type: 'buy', title: 'Inversión 50 Tokens - Don Luis (PAJ-DLUIS)', amount: '-1,225.00 USDC', date: '14 Feb 2026', txHash: '0.0.651928@1739520000', status: 'Confirmado en Hedera' },
-    { id: 'tx-buy-2', type: 'buy', title: 'Inversión 80 Tokens - Pucará 459 (PAJ-PUCARA)', amount: '-1,720.00 USDC', date: '02 Feb 2026', txHash: '0.0.651928@1738483200', status: 'Confirmado en Hedera' },
-    { id: 'tx-claim-2', type: 'claim', title: 'Rendimiento Venta Salto Seminal #14', amount: '+188.50 USDC', date: '15 Ene 2026', txHash: '0.0.651928@1736937600', status: 'Completado' },
+    { id: 'tx-claim-1', type: 'claim', title: 'Reclamo de Dividendos Trimestrales (USDC)', amount: '+240.00 USDC', date: '01 Mar 2026', txHash: '0.0.10989663@1792195399.994254938', status: 'Completado' },
+    { id: 'tx-buy-1', type: 'buy', title: 'Inversión 50 Tokens - Don Luis (PAJ-BRAF)', amount: '-1,225.00 USDC', date: '14 Feb 2026', txHash: '0.0.10989663@1792119170.496094920', status: 'Confirmado en Hedera' },
+    { id: 'tx-buy-2', type: 'buy', title: 'Inversión 80 Tokens - Pucará 459 (PAJ-PUCARA)', amount: '-1,720.00 USDC', date: '02 Feb 2026', txHash: '0.0.10989663@1792195399.263404416', status: 'Confirmado en Hedera' },
+    { id: 'tx-claim-2', type: 'claim', title: 'Rendimiento Venta Salto Seminal #14', amount: '+188.50 USDC', date: '15 Ene 2026', txHash: '0.0.10989663@1792195401.323232143', status: 'Completado' },
   ]
 };

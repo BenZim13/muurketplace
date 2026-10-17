@@ -65,12 +65,12 @@ Esta solución interactúa de manera nativa con la red **Hedera Testnet**, imple
 | Parámetro | Registro Oficial en Red |
 | :--- | :--- |
 | **Blockchain** | Hedera Hashgraph (Testnet) |
-| **Token ID (PAJ-BRAF)** | [`0.0.11043216`](https://hashscan.io/testnet/token/0.0.11043216) |
-| **Símbolo del Token** | `PAJ-BRAF` (Fungible Common, 0 decimales, Suministro Finito) |
-| **Suministro Inicial / Máximo** | 250 Pajuelas (Salto Genético) |
 | **Cuenta Tesorería (Cabaña)** | [`0.0.10989663`](https://hashscan.io/testnet/account/0.0.10989663) |
-| **Transaction ID** | `0.0.10989663@1792119170.496094920` |
-| **Enlace a HashScan** | [https://hashscan.io/testnet/transaction/0.0.10989663@1792119170.496094920](https://hashscan.io/testnet/transaction/0.0.10989663@1792119170.496094920) |
+| **Token `PAJ-BRAF` (Don Luis)** | [`0.0.11043216`](https://hashscan.io/testnet/token/0.0.11043216) · 250 supply · 0 decimales |
+| **Token `PAJ-PUCARA` (Pucará 459)** | [`0.0.11054878`](https://hashscan.io/testnet/token/0.0.11054878) · 250 supply · 0 decimales |
+| **Token `PAJ-FEDER` (Col. Correntino)**| [`0.0.11054879`](https://hashscan.io/testnet/token/0.0.11054879) · 250 supply · 0 decimales |
+| **Token `BULL` (Copropiedad Animal Vivo)**| [`0.0.11054880`](https://hashscan.io/testnet/token/0.0.11054880) · 10 supply · 4 decimales |
+| **Transacción de Emisión Principal** | [`0.0.10989663@1792119170.496094920`](https://hashscan.io/testnet/transaction/0.0.10989663@1792119170.496094920) |
 
 ### Servicios de Hedera Utilizados:
 1. **Hedera Token Service (HTS):** Emisión nativa de la arquitectura dual de activos: el activo productivo fraccionado `PAJ-BRAF` (1 dosis seminal de 0.5 ml) y la infraestructura para el equity patrimonial sobre el reproductor `BULL`. Los suministros están estrictamente delimitados y custodiados por la tesorería de la cabaña emisora, permitiendo a los compradores mantener la custodia soberana en billeteras compatibles (como HashPack).

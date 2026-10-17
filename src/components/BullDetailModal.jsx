@@ -59,8 +59,8 @@ export default function BullDetailModal({
     setTimeout(() => {
       const txHash = `0.0.651928@${Math.floor(Date.now() / 1000)}.000000001`;
       setIsInvesting(false);
-      const activeTokenId = isPajuela ? bull.htsTokenId : '0.0.11043217';
-      const activeSymbol = isPajuela ? (bull.symbol || 'PAJ-BRAF') : 'BULL-EQ';
+      const activeTokenId = isPajuela ? bull.htsTokenId : '0.0.11054880';
+      const activeSymbol = isPajuela ? (bull.symbol || 'PAJ-BRAF') : 'BULL';
       const assetLabel = isPajuela 
         ? `${tokenAmount} Pajuelas Seminales (${activeSymbol})`
         : `${equityAmount} Cuota Parte (${equityPercentOwned}% Copropiedad del Toro en Pie)`;
